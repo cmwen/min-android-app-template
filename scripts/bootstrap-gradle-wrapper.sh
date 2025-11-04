@@ -11,12 +11,18 @@ mkdir -p "${WRAPPER_DIR}"
 
 if [[ ! -f "${WRAPPER_DIR}/gradle-wrapper.jar" ]]; then
   echo "Downloading Gradle wrapper ${GRADLE_VERSION}..."
+  ZIP_PATH="/tmp/gradle-${GRADLE_VERSION}-bin.zip"
   curl -fL "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
-    -o "/tmp/gradle-${GRADLE_VERSION}-bin.zip"
+    -o "${ZIP_PATH}"
 
-  unzip -q "/tmp/gradle-${GRADLE_VERSION}-bin.zip" "gradle-${GRADLE_VERSION}/lib/gradle-wrapper-${GRADLE_VERSION}.jar" -d /tmp
-  mv "/tmp/gradle-${GRADLE_VERSION}/lib/gradle-wrapper-${GRADLE_VERSION}.jar" "${WRAPPER_DIR}/gradle-wrapper.jar"
-  rm -rf "/tmp/gradle-${GRADLE_VERSION}" "/tmp/gradle-${GRADLE_VERSION}-bin.zip"
+  JAR_ENTRY="gradle-${GRADLE_VERSION}/lib/plugins/gradle-wrapper-${GRADLE_VERSION}.jar"
+  if ! unzip -l "${ZIP_PATH}" "${JAR_ENTRY}" >/dev/null 2>&1; then
+    echo "Unable to locate ${JAR_ENTRY} in distribution zip." >&2
+    exit 1
+  fi
+
+  unzip -p "${ZIP_PATH}" "${JAR_ENTRY}" > "${WRAPPER_DIR}/gradle-wrapper.jar"
+  rm -f "${ZIP_PATH}"
 else
   echo "Gradle wrapper jar already exists."
 fi
