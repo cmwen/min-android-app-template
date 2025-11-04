@@ -1,0 +1,46 @@
+name: Bootstrap Android Template
+
+on:
+  workflow_dispatch:
+    inputs:
+      api-level:
+        description: Android API level to install
+        default: "34"
+        required: true
+      build-tools:
+        description: Android build tools version to install
+        default: "34.0.0"
+        required: true
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      JAVA_VERSION: "17"
+
+    steps:
+      - name: Checkout template
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: gradle
+
+      - name: Install Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          api-level: ${{ github.event.inputs.api-level }}
+          build-tools: ${{ github.event.inputs.build-tools }}
+          target: android-${{ github.event.inputs.api-level }}
+          cmake: "3.22.1"
+          cache: true
+
+      - name: Bootstrap Gradle wrapper
+        run: ./scripts/bootstrap-gradle-wrapper.sh
+
+      - name: Generate Android project artifacts
+        run: ./gradlew --stacktrace tasks
