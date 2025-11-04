@@ -17,6 +17,7 @@ if [[ ! -f "${WRAPPER_DIR}/gradle-wrapper.jar" ]]; then
 
   WRAPPER_JAR_PATH="gradle-${GRADLE_VERSION}/lib/plugins/gradle-wrapper-${GRADLE_VERSION}.jar"
   SHARED_JAR_PATH="gradle-${GRADLE_VERSION}/lib/gradle-wrapper-shared-${GRADLE_VERSION}.jar"
+  CLI_JAR_PATH="gradle-${GRADLE_VERSION}/lib/gradle-cli-${GRADLE_VERSION}.jar"
 
   if ! unzip -l "${ZIP_PATH}" "${WRAPPER_JAR_PATH}" >/dev/null 2>&1; then
     echo "Unable to locate ${WRAPPER_JAR_PATH} in distribution zip." >&2
@@ -28,8 +29,14 @@ if [[ ! -f "${WRAPPER_DIR}/gradle-wrapper.jar" ]]; then
     exit 1
   fi
 
+  if ! unzip -l "${ZIP_PATH}" "${CLI_JAR_PATH}" >/dev/null 2>&1; then
+    echo "Unable to locate ${CLI_JAR_PATH} in distribution zip." >&2
+    exit 1
+  fi
+
   unzip -p "${ZIP_PATH}" "${WRAPPER_JAR_PATH}" > "${WRAPPER_DIR}/gradle-wrapper.jar"
   unzip -p "${ZIP_PATH}" "${SHARED_JAR_PATH}" > "${WRAPPER_DIR}/gradle-wrapper-shared.jar"
+  unzip -p "${ZIP_PATH}" "${CLI_JAR_PATH}" > "${WRAPPER_DIR}/gradle-cli.jar"
   rm -f "${ZIP_PATH}"
 else
   echo "Gradle wrapper jar already exists."
@@ -84,7 +91,7 @@ if [ "$OSTYPE" = "cygwin" ] || [ "$OSTYPE" = "msys" ] || [ "$OSTYPE" = "darwin"*
     ulimit -n 2048 >/dev/null 2>&1 || true
 fi
 
-CLASSPATH=$(dirname "$0")/gradle/wrapper/gradle-wrapper.jar:$(dirname "$0")/gradle/wrapper/gradle-wrapper-shared.jar
+CLASSPATH=$(dirname "$0")/gradle/wrapper/gradle-wrapper.jar:$(dirname "$0")/gradle/wrapper/gradle-wrapper-shared.jar:$(dirname "$0")/gradle/wrapper/gradle-cli.jar
 APP_BASE_NAME=$(basename "$0")
 
 exec "$JAVA_CMD" -classpath "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain "$@"
@@ -137,7 +144,7 @@ echo location of your Java installation.
 goto fail
 
 :execute
-set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar;%APP_HOME%\gradle\wrapper\gradle-wrapper-shared.jar
+set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar;%APP_HOME%\gradle\wrapper\gradle-wrapper-shared.jar;%APP_HOME%\gradle\wrapper\gradle-cli.jar
 
 "%JAVA_EXE%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %*
 
