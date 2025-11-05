@@ -1,7 +1,7 @@
 [versions]
 androidGradlePlugin = "8.6.1"
 kotlin = "1.9.25"
-coreKtx = "1.13.1"
+coreKtx = "1.17.0"
 lifecycleRuntimeKtx = "2.8.6"
 activityKtx = "1.9.2"
 appcompat = "1.7.0"
