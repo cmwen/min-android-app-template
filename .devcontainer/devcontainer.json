@@ -1,19 +1,20 @@
 {
   "name": "AI-Aware Android Template",
-  "image": "mcr.microsoft.com/devcontainers/android:0-34",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".devcontainer"
+  },
   "features": {
-    "ghcr.io/devcontainers/features/java:1": {
-      "version": "17"
-    },
     "ghcr.io/devcontainers/features/node:1": {
       "version": "20"
     }
   },
   "containerEnv": {
-    "ANDROID_HOME": "/usr/local/android-sdk",
-    "JAVA_HOME": "/usr/lib/jvm/msopenjdk-current"
+    "ANDROID_HOME": "/opt/android-sdk",
+    "ANDROID_SDK_ROOT": "/opt/android-sdk",
+    "JAVA_HOME": "/usr/lib/jvm/java-17-openjdk-amd64"
   },
-  "postCreateCommand": "sdkmanager --install 'platforms;android-34' 'build-tools;34.0.0' 'platform-tools' && yes | sdkmanager --licenses",
+  "postCreateCommand": "bash -lc \"yes | sdkmanager --sdk_root=$ANDROID_HOME --licenses && sdkmanager --sdk_root=$ANDROID_HOME --install 'platforms;android-34' 'build-tools;34.0.0' 'platform-tools'\"",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -27,10 +28,10 @@
         "java.configuration.runtimes": [
           {
             "name": "JavaSE-17",
-            "path": "/usr/lib/jvm/msopenjdk-current"
+            "path": "/usr/lib/jvm/java-17-openjdk-amd64"
           }
         ],
-        "gradle.java.home": "/usr/lib/jvm/msopenjdk-current",
+        "gradle.java.home": "/usr/lib/jvm/java-17-openjdk-amd64",
         "editor.formatOnSave": true
       }
     }
