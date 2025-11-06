@@ -120,15 +120,27 @@ jobs:
       - name: Create Git tag
         if: github.event_name == 'workflow_dispatch' && github.event.inputs.create_tag == 'true'
         uses: actions/github-script@v8
+        env:
+          VERSION_TAG: ${{ steps.version.outputs.version_tag }}
         with:
-          version_tag: ${{ steps.version.outputs.version_tag }}
           script: |
-            const tag = core.getInput('version_tag');
+            const tag = process.env.VERSION_TAG;
+            if (!tag) {
+              core.setFailed('VERSION_TAG was not provided');
+              return;
+            }
+
             const { repo, owner } = context.repo;
             const sha = context.sha;
+
             try {
-              await github.git.createRef({ owner, repo, ref: `refs/tags/${tag}`, sha });
+              await github.rest.git.createRef({ owner, repo, ref: `refs/tags/${tag}`, sha });
             } catch (error) {
+              if (error.status === 422) {
+                core.notice(`Tag ${tag} already exists; skipping creation.`);
+                return;
+              }
+
               core.setFailed(`Unable to create tag ${tag}: ${error.message}`);
             }
 
