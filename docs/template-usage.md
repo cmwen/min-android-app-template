@@ -14,11 +14,12 @@ This document explains how to work with the AI-aware Android template, including
 
 ## Automation Pipelines
 
-The repository ships with two GitHub Actions workflows located in `.github/workflows/`:
+The repository ships with three GitHub Actions workflows located in `.github/workflows/`:
 
 | Workflow | Trigger | Purpose |
 | --- | --- | --- |
 | `ci.yml` | `push` to `main`, all pull requests | Runs lint, unit tests, and assembles the debug APK to ensure baseline quality. |
+| `codeql.yml` | `push` to `main`, all pull requests, weekly schedule | Performs GitHub CodeQL static analysis for Kotlin/Java sources to surface security issues. |
 | `release.yml` | `workflow_dispatch`, `push` tags matching `v*` | Builds signed release artifacts, uploads them as workflow artifacts, and publishes a GitHub Release. |
 
 Dependabot (`.github/dependabot.yml`) keeps Gradle dependencies and GitHub Actions versions current via weekly update PRs.
