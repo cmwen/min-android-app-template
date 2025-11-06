@@ -87,6 +87,7 @@ jobs:
         run: |
           mkdir -p "$(dirname "${SIGNING_KEYSTORE_PATH}")"
           echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > "${SIGNING_KEYSTORE_PATH}"
+          echo "ANDROID_KEYSTORE_PATH=${GITHUB_WORKSPACE}/${SIGNING_KEYSTORE_PATH}" >> "$GITHUB_ENV"
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
@@ -96,7 +97,6 @@ jobs:
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
-          ANDROID_KEYSTORE_PATH: ${{ env.SIGNING_KEYSTORE_PATH }}
           VERSION_NAME: ${{ steps.version.outputs.version_name }}
           VERSION_CODE: ${{ steps.version.outputs.version_code }}
         run: |
