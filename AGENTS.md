@@ -8,9 +8,9 @@ This is a minimal Android application template designed to serve as a starting p
 
 ## Key Technologies
 
-- **Language**: Kotlin 2.0.21
+- **Language**: Kotlin 2.0.0
 - **Build System**: Gradle 8.11.1 with Kotlin DSL
-- **Android Gradle Plugin**: 8.7.3
+- **Android Gradle Plugin**: 8.5.2
 - **Target SDK**: 34 (Android 14)
 - **Minimum SDK**: 24 (Android 7.0)
 

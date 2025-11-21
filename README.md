@@ -6,8 +6,8 @@ A minimal Android app template with modern tooling and CI/CD setup.
 
 - ✅ **Latest Android SDK 34** (Target SDK 34, Min SDK 24)
 - ✅ **Gradle 8.11.1** with Kotlin DSL
-- ✅ **AGP 8.7.3** (Android Gradle Plugin)
-- ✅ **Kotlin 2.0.21**
+- ✅ **AGP 8.5.2** (Android Gradle Plugin)
+- ✅ **Kotlin 2.0.0**
 - ✅ **AndroidX** libraries
 - ✅ **Material Design** components
 - ✅ **View Binding** enabled
@@ -37,6 +37,7 @@ A minimal Android app template with modern tooling and CI/CD setup.
 - JDK 17 or higher
 - Android SDK with API 34
 - Gradle 8.11.1 (included via wrapper)
+- Internet access to maven.google.com for dependency downloads
 
 ### Clone and Build
 ```bash
