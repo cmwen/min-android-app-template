@@ -1,0 +1,47 @@
+name: Beta Build
+
+on:
+  push:
+    branches:
+      - beta
+      - develop
+  workflow_dispatch:
+
+jobs:
+  beta:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+        
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+      
+    - name: Create keystore
+      run: |
+        echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > beta.keystore || \
+        keytool -genkey -v -keystore beta.keystore -alias beta -keyalg RSA -keysize 2048 -validity 10000 \
+          -storepass android -keypass android -dname "CN=Android Debug,O=Android,C=US"
+      
+    - name: Build Beta APK
+      env:
+        KEYSTORE_FILE: ../beta.keystore
+        KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD || 'android' }}
+        KEY_ALIAS: ${{ secrets.KEY_ALIAS || 'beta' }}
+        KEY_PASSWORD: ${{ secrets.KEY_PASSWORD || 'android' }}
+      run: ./gradlew assembleBeta --no-daemon --stacktrace
+      
+    - name: Upload Beta APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: beta-apk
+        path: app/build/outputs/apk/beta/*.apk
+        retention-days: 14
