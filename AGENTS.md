@@ -8,10 +8,10 @@ This is a minimal Android application template designed to serve as a starting p
 
 ## Key Technologies
 
-- **Language**: Kotlin 2.0.0
-- **Build System**: Gradle 8.11.1 with Kotlin DSL
-- **Android Gradle Plugin**: 8.5.2
-- **Target SDK**: 34 (Android 14)
+- **Language**: Kotlin 2.2.21
+- **Build System**: Gradle 9.2.1 with Kotlin DSL
+- **Android Gradle Plugin**: 8.13.0
+- **Target SDK**: 36 (Android 16)
 - **Minimum SDK**: 24 (Android 7.0)
 
 ## Project Structure
@@ -149,10 +149,10 @@ export KEY_PASSWORD=your_key_password
 2. Use View Binding for UI components
 3. Add resources to appropriate directories under `res/`
 4. Update strings.xml for user-facing text
-5. Maintain target SDK 34 compatibility
+5. Maintain target SDK 36 compatibility
 
 ### When Updating Dependencies
-1. Check compatibility with target SDK 34
+1. Check compatibility with target SDK 36
 2. Test build after updates
 3. Review changelog for breaking changes
 4. Update version numbers in build.gradle.kts
@@ -234,7 +234,7 @@ export KEY_PASSWORD=your_key_password
 
 ## Agent Behavior Notes
 
-- Always check that changes maintain compatibility with SDK 34
+- Always check that changes maintain compatibility with SDK 36
 - Verify build succeeds before committing changes
 - Use provided Gradle wrapper, don't modify wrapper version without good reason
 - Keep dependencies up to date but stable (avoid alpha/beta versions)
