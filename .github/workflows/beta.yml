@@ -33,7 +33,7 @@ jobs:
       
     - name: Build Beta APK
       env:
-        KEYSTORE_FILE: ../beta.keystore
+        ANDROID_KEYSTORE_FILE: ../beta.keystore
         ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD || 'android' }}
         ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS || 'beta' }}
         ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD || 'android' }}

@@ -20,7 +20,7 @@ android {
     signingConfigs {
         create("release") {
             // For self-signed releases, these will be set via environment variables
-            storeFile = System.getenv("KEYSTORE_FILE")?.let { file(it) }
+            storeFile = System.getenv("ANDROID_KEYSTORE_FILE")?.let { file(it) }
             storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
             keyAlias = System.getenv("ANDROID_KEY_ALIAS")
             keyPassword = System.getenv("ANDROID_KEY_PASSWORD")
@@ -35,7 +35,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            if (System.getenv("KEYSTORE_FILE") != null) {
+            if (System.getenv("ANDROID_KEYSTORE_FILE") != null) {
                 signingConfig = signingConfigs.getByName("release")
             }
         }

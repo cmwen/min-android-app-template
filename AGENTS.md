@@ -136,7 +136,7 @@ Set these repository secrets:
 ### Local Development
 Export environment variables:
 ```bash
-export KEYSTORE_FILE=/path/to/keystore.jks
+export ANDROID_KEYSTORE_FILE=/path/to/keystore.jks
 export ANDROID_KEYSTORE_PASSWORD=your_password
 export ANDROID_KEY_ALIAS=your_alias
 export ANDROID_KEY_PASSWORD=your_key_password

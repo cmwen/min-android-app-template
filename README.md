@@ -57,7 +57,7 @@ cd cmwen-min-android-app-template
 ./gradlew assembleRelease
 
 # With your own keystore
-export KEYSTORE_FILE=/path/to/your/keystore.jks
+export ANDROID_KEYSTORE_FILE=/path/to/your/keystore.jks
 export ANDROID_KEYSTORE_PASSWORD=your_store_password
 export ANDROID_KEY_ALIAS=your_key_alias
 export ANDROID_KEY_PASSWORD=your_key_password
