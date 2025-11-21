@@ -27,16 +27,16 @@ jobs:
       
     - name: Create keystore
       run: |
-        echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > beta.keystore || \
+        echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > beta.keystore || \
         keytool -genkey -v -keystore beta.keystore -alias beta -keyalg RSA -keysize 2048 -validity 10000 \
           -storepass android -keypass android -dname "CN=Android Debug,O=Android,C=US"
       
     - name: Build Beta APK
       env:
-        KEYSTORE_FILE: ../beta.keystore
-        KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD || 'android' }}
-        KEY_ALIAS: ${{ secrets.KEY_ALIAS || 'beta' }}
-        KEY_PASSWORD: ${{ secrets.KEY_PASSWORD || 'android' }}
+        ANDROID_KEYSTORE_FILE: ../beta.keystore
+        ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD || 'android' }}
+        ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS || 'beta' }}
+        ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD || 'android' }}
       run: ./gradlew assembleBeta --no-daemon --stacktrace
       
     - name: Upload Beta APK
