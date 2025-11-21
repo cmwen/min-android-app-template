@@ -128,18 +128,18 @@ Dependabot is configured to automatically create PRs for dependency updates with
 
 ### For CI/CD
 Set these repository secrets:
-- `KEYSTORE_BASE64`: Base64-encoded keystore file
-- `KEYSTORE_PASSWORD`: Keystore password
-- `KEY_ALIAS`: Key alias name
-- `KEY_PASSWORD`: Key password
+- `ANDROID_KEYSTORE_BASE64`: Base64-encoded keystore file
+- `ANDROID_KEYSTORE_PASSWORD`: Keystore password
+- `ANDROID_KEY_ALIAS`: Key alias name
+- `ANDROID_KEY_PASSWORD`: Key password
 
 ### Local Development
 Export environment variables:
 ```bash
 export KEYSTORE_FILE=/path/to/keystore.jks
-export KEYSTORE_PASSWORD=your_password
-export KEY_ALIAS=your_alias
-export KEY_PASSWORD=your_key_password
+export ANDROID_KEYSTORE_PASSWORD=your_password
+export ANDROID_KEY_ALIAS=your_alias
+export ANDROID_KEY_PASSWORD=your_key_password
 ```
 
 ## Code Modification Guidelines

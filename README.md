@@ -58,9 +58,9 @@ cd cmwen-min-android-app-template
 
 # With your own keystore
 export KEYSTORE_FILE=/path/to/your/keystore.jks
-export KEYSTORE_PASSWORD=your_store_password
-export KEY_ALIAS=your_key_alias
-export KEY_PASSWORD=your_key_password
+export ANDROID_KEYSTORE_PASSWORD=your_store_password
+export ANDROID_KEY_ALIAS=your_key_alias
+export ANDROID_KEY_PASSWORD=your_key_password
 ./gradlew assembleRelease
 ```
 
@@ -117,10 +117,10 @@ Edit `app/src/main/res/values/strings.xml`:
 
 ### Configure Signing for Release
 Set these secrets in GitHub repository settings:
-- `KEYSTORE_BASE64` - Base64 encoded keystore file
-- `KEYSTORE_PASSWORD` - Keystore password
-- `KEY_ALIAS` - Key alias
-- `KEY_PASSWORD` - Key password
+- `ANDROID_KEYSTORE_BASE64` - Base64 encoded keystore file
+- `ANDROID_KEYSTORE_PASSWORD` - Keystore password
+- `ANDROID_KEY_ALIAS` - Key alias
+- `ANDROID_KEY_PASSWORD` - Key password
 
 ## Documentation
 
