@@ -2,6 +2,16 @@
 
 A minimal Android app template with modern tooling and CI/CD setup.
 
+## 🤖 New: AI-Assisted Development Guides
+
+**Building your first Android app with AI?** Check out our comprehensive guides:
+- 🌱 [**Beginner's Guide**](docs/AI_BEGINNER_GUIDE.md) - Never coded before? Start here!
+- 🎓 [**Intermediate Guide**](docs/AI_INTERMEDIATE_GUIDE.md) - Know programming but new to Android?
+- 🚀 [**Advanced Guide**](docs/AI_ADVANCED_GUIDE.md) - Experienced developer? Accelerate with AI!
+- 📝 [**Prompt Templates**](docs/AI_PROMPT_TEMPLATES.md) - Ready-to-use prompts for common tasks
+
+👉 **[Start with the AI Prompting Guide](AI_PROMPTING_GUIDE.md)** to learn how to effectively use AI assistants (ChatGPT, Claude, GitHub Copilot) to build Android apps!
+
 ## Features
 
 - ✅ **Latest Android SDK 36** (Target SDK 36, Min SDK 24)
@@ -124,7 +134,19 @@ Set these secrets in GitHub repository settings:
 
 ## Documentation
 
+### AI-Assisted Development Guides
+- **[AI Prompting Guide](AI_PROMPTING_GUIDE.md)** - Complete guide to using AI for Android development
+- **[Beginner's Guide](docs/AI_BEGINNER_GUIDE.md)** - For those new to programming and Android
+- **[Intermediate Guide](docs/AI_INTERMEDIATE_GUIDE.md)** - For developers new to Android
+- **[Advanced Guide](docs/AI_ADVANCED_GUIDE.md)** - For experienced Android developers
+- **[Prompt Templates](docs/AI_PROMPT_TEMPLATES.md)** - Ready-to-use prompt templates
+
+### Technical Documentation
 - [AGENTS.md](AGENTS.md) - Agent configuration and instructions
+- [TESTING.md](TESTING.md) - Testing procedures
+- [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines
+
+### External Resources
 - [Android Developer Guide](https://developer.android.com/)
 - [Gradle User Guide](https://docs.gradle.org/)
 
