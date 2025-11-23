@@ -180,8 +180,10 @@ export ANDROID_KEY_PASSWORD=your_key_password
 ### Adding a New Dependency
 1. Add to `app/build.gradle.kts` in dependencies block
 2. Sync Gradle
-3. Verify build succeeds
-4. Update README if it's a major dependency
+3. **Run `./gradlew build` to verify the new dependency version is compatible with the current setup**
+4. Verify build succeeds without errors
+5. Test both debug and release builds if applicable
+6. Update README if it's a major dependency
 
 ### Creating a New Screen
 1. Create Kotlin class extending AppCompatActivity
