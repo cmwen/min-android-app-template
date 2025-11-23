@@ -31,6 +31,9 @@ Keep these instructions concise and actionable — follow them when making edits
   - Minor theme tweaks should go in `website/src/styles.css`.
   - Add media assets to `website/public/` if needed (create the folder). Don’t commit very large files; prefer optimized images.
 
+  - Project prompts & design helpers
+    - The repository contains Copilot custom prompts under `.github/prompts/` (e.g. `icon-generation.prompt.md`) — use these for consistent, copy-ready prompts when generating icons, SVGs, VectorDrawable XML, or launcher assets.
+
 - Structural changes
   - Adding new top-level routes: create `website/src/pages/yourpage.astro`.
   - Add additional layouts in `website/src/layouts/` and import them in pages.

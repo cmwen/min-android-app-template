@@ -26,6 +26,15 @@ For more information, see: https://code.visualstudio.com/docs/copilot/customizat
 - Adding new dependencies to `app/build.gradle.kts`
 - Updating existing dependency versions
 - Troubleshooting build failures related to dependencies
+
+### icon-generation.md
+
+**Purpose**: Helps designers and developers create consistent, platform-ready icons (SVG, PNG, Android VectorDrawable) and adaptive launcher assets. Includes prompt templates, Android sizing guidance, filename conventions, and examples for use with Copilot, Copilot Chat, and image-generation models.
+
+**When to Use**:
+- When creating UI or launcher icons
+- When converting a design to VectorDrawable for Android
+- When producing export-ready PNG/SVG files for multiple densities
 - Reviewing dependency compatibility during code reviews
 
 ## Contributing Custom Prompts

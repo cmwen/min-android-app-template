@@ -261,6 +261,17 @@ Please provide:
 6. Accessibility implementation
 
 Using: min-android-app-template, SDK 24+
+
+### Icons & Assets
+
+```
+I need icons and launcher assets for my app. Use the project's icon guidelines and provide:
+1. Vector-first SVG for UI icons sized at 24x24 (viewBox 0 0 24 24) and Android VectorDrawable XML
+2. Adaptive launcher icon foreground SVG (transparent) and suggested background color with multiple PNG exports for mipmap densities
+3. File paths and recommended filenames (drawable/vector or mipmap/*) and one-line alt text for accessibility
+
+Please follow the `icon-generation.prompt.md` custom prompt in `.github/prompts/` for constraints and examples.
+```
 ```
 
 ---
