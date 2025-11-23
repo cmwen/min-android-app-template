@@ -201,6 +201,31 @@ export ANDROID_KEY_PASSWORD=your_key_password
 3. Add workflow if CI/CD support needed
 4. Document in README
 
+### Static website (Astro)
+
+This repository now contains a small static website under `website/` (an Astro project with a Startlight-inspired theme).
+
+Agents working with the website should:
+
+1. Install dependencies and run the dev server locally:
+
+```bash
+cd website
+npm install
+npm run dev
+```
+
+2. Build for production:
+
+```bash
+npm run build
+```
+
+3. CI deploy is configured in `.github/workflows/deploy-website.yml` and will publish `website/dist/` to GitHub Pages when a GitHub Release is published (or via manual workflow dispatch).
+
+4. Update `website/astro.config.mjs` `site` value with the correct GitHub Pages URL for the repository.
+
+
 ## Troubleshooting
 
 ### Build Failures

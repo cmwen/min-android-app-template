@@ -1,0 +1,81 @@
+# Agents guide — website/
+
+This file explains how AI agents and automated tools should work with the `website/` Astro project for the `min-android-app-template` repository.
+
+Keep these instructions concise and actionable — follow them when making edits, testing locally, or changing CI/deployment behavior.
+
+## Project overview
+
+- Location: `website/` (this directory contains an Astro site with a Startlight-inspired theme)
+- Build output: `website/dist/` (static files produced by `npm run build`)
+- Hosted: GitHub Pages via `.github/workflows/deploy-website.yml` (build & deploy when a GitHub Release is published)
+
+## Local environment & expectations
+
+-- Node: use Node 18+ (see `package.json` engines field). The site uses Astro v5.15 — prefer `npm ci` to get supported versions.
+- Commands:
+  - `npm ci` — install exact dependencies for CI
+  - `npm install` — install locally for development
+  - `npm run dev` — start the dev server
+  - `npm run build` — create a static site in `website/dist/`
+  - `npm run preview` — preview the built output locally
+
+## Common tasks for agents
+
+- Add or edit content
+  - Modify or create files under `website/src/pages/` for content pages.
+  - For reusable sections or patterns, add components under `website/src/components/` and use layouts in `website/src/layouts/`.
+  - Keep copy short and link back to repository files as appropriate.
+
+- Styling and assets
+  - Minor theme tweaks should go in `website/src/styles.css`.
+  - Add media assets to `website/public/` if needed (create the folder). Don’t commit very large files; prefer optimized images.
+
+- Structural changes
+  - Adding new top-level routes: create `website/src/pages/yourpage.astro`.
+  - Add additional layouts in `website/src/layouts/` and import them in pages.
+
+- CI & deploy changes
+  - The CI pipeline lives at `.github/workflows/deploy-website.yml` and builds `website/dist/` to deploy to GitHub Pages — it runs when a GitHub Release is published (or via manual dispatch).
+  - If a change requires a different Pages branch, the workflow must be updated and peer-reviewed.
+
+## Authoring rules and conventions
+
+- Keep pages accessible and lightweight — static HTML, minimal client JS.
+- Use clear headings and short paragraphs (two to four sentences per paragraph).
+- For any external links, use rel="noopener" and target="_blank".
+- Follow the Startlight style: dark, elegant, compact cards and concise text.
+
+## Testing & validation
+
+- Build success: `npm run build` must finish with zero errors and generate files in `website/dist/`.
+- Manual preview: `npm run preview` should serve the `dist/` output for quick QA.
+
+## When to open a PR vs. push to main
+
+- Small content updates (typos, wording) may be pushed directly to main, only when you own the repo or have explicit permission.
+- Feature changes, CI edits, or layout refactors must be made via pull request with description and a short testing checklist.
+
+## Metadata & configuration
+
+- Update `astro.config.mjs` if the site URL or other config changes are required. It currently contains the `site` value for GitHub Pages, e.g.:
+
+```js
+// website/astro.config.mjs
+import { defineConfig } from 'astro/config';
+
+export default defineConfig({
+  site: 'https://cmwe.github.io/min-android-app-template',
+});
+```
+
+If you change the `site` value, ensure CI and README are consistent and update links where necessary.
+
+## Review & release notes for maintainers
+
+- Keep PRs small and scoped; always run `npm ci` and `npm run build` locally before asking for review.
+- Document any breaking changes in the `website/README.md` and in the top-level `README.md` if they affect the project or CI.
+
+---
+
+If you'd like, I can add a small script or CI check to automatically validate the `npm run build` output and run it on PRs as well. Just say the word and I'll add it. 

@@ -30,6 +30,20 @@ A minimal Android app template with modern tooling and CI/CD setup.
 - **Beta** - Beta builds on beta/develop branches with beta app ID suffix
 - **CodeQL** - Security code scanning on schedule and PRs
 
+## Website (Astro)
+
+This repository now includes a small static website built with Astro (v5.15) using a Startlight-inspired theme. The site lives in the `website/` folder and is published automatically to GitHub Pages via a GitHub Actions workflow.
+
+- Local preview: `cd website && npm install && npm run dev`
+- Build: `cd website && npm run build` (outputs `website/dist/`)
+- CI deploys `website/dist/` to GitHub Pages when a new GitHub Release is published (see `.github/workflows/deploy-website.yml`).
+
+Make sure to update `website/astro.config.mjs` with your GitHub Pages URL (replace `<USERNAME>`):
+
+```js
+site: 'https://<USERNAME>.github.io/min-android-app-template'
+```
+
 ### Dependabot
 - Automated dependency updates with grouping to reduce PRs
 - Groups: AndroidX, Kotlin, Testing, Google/Material, Build Tools, GitHub Actions
