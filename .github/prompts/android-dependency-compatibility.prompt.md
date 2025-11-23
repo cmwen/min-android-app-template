@@ -24,6 +24,28 @@ This is a minimal Android template project. **For the authoritative source of cu
 - **AGP Version**: Specified as a classpath dependency in `build.gradle.kts`
 - **Gradle Version**: Managed by `gradle/wrapper/gradle-wrapper.properties`
 
+### Current Project Build Configuration (as of Nov 2025)
+
+For **authoritative, up-to-date versions**, always check:
+1. `build.gradle.kts` and `app/build.gradle.kts` in the repository
+2. Context7 libraries for latest releases:
+   - **Kotlin**: /jetbrains/kotlin (official Kotlin documentation)
+   - **Android Gradle Plugin (AGP)**: /android/gradle-recipes (official AGP documentation)
+   - **Gradle**: /gradle/gradle (official Gradle documentation)
+   - **AndroidX**: /androidx/androidx (AndroidX releases and compatibility)
+   - **Material Design**: /material-components/material-components-android
+
+Current snapshot (verify these in build.gradle.kts for latest):
+- **Kotlin**: 2.2.21 (check Context7 for updates; 2.2.x is current stable)
+- **AGP (Android Gradle Plugin)**: 8.13.1 (check for 8.14.x+ if available)
+- **Gradle**: 9.2.1 (check for latest 9.x releases)
+- **JDK**: 17 (required for AGP 8.13.1+)
+- **Target SDK**: 36 (Android 16)
+- **Minimum SDK**: 24 (Android 7.0)
+- **AndroidX Core**: 1.17.0+
+- **AndroidX AppCompat**: 1.7.1+
+- **Material Design Components**: 1.13.0+
+
 ## Compatibility Rules
 
 ### When Adding or Updating Dependencies
@@ -177,13 +199,19 @@ When suggesting dependency changes, ensure you validate:
 
 ## Additional Resources
 
+**Official Documentation (via Context7)**:
+- [Kotlin Official Docs](https://kotlinlang.org/) - Latest Kotlin compiler and library documentation (reference via Context7 /jetbrains/kotlin)
+- [Android Gradle Plugin Recipes](https://developer.android.com/studio/releases/gradle-plugin) - AGP official recipes and examples (reference via Context7 /android/gradle-recipes)
+- [Gradle Official Documentation](https://gradle.org/) - Gradle build system documentation (reference via Context7 /gradle/gradle)
+- [AndroidX Documentation](https://developer.android.com/jetpack/androidx) - Jetpack and AndroidX library reference (reference via Context7 /androidx/androidx)
+- [Material Design Components for Android](https://material.io/develop/android) - MDC-Android library docs (reference via Context7 /material-components/material-components-android)
+
+**Community & Reference**:
 - [Android Gradle Plugin Release Notes](https://developer.android.com/studio/releases/gradle-plugin) - Official compatibility information
-- [Gradle Compatibility Matrix](https://gradle.org/releases/) - Gradle version requirements
-- [Kotlin Compiler Version Compatibility](https://kotlinlang.org/docs/faq.html) - Official Kotlin documentation
-- [AndroidX Release Notes and Versions](https://developer.android.com/jetpack/androidx/releases) - Official AndroidX library information
+- [Gradle Release Notes](https://gradle.org/releases/) - Gradle version requirements
 - [Maven Central Repository](https://mvnrepository.com/) - Search for library versions and dependencies
-- [Material Design Components](https://material.io/develop/android/docs/getting-started) - Component documentation
 - [Android API Level Reference](https://developer.android.com/guide/topics/manifest/uses-sdk-element) - SDK level details
+- [Android Security & Privacy](https://developer.android.com/privacy-and-security) - Latest security requirements for target SDK
 
 ---
 
@@ -198,4 +226,24 @@ When suggesting dependency changes, ensure you validate:
 7. **Automate Where Possible**: Use Dependabot for automated version checks and PRs
 
 **Note**: This prompt is designed to evolve. Review and update it as build tools, Android SDK, and Kotlin versions advance. The principles remain constant even as specific versions change.
+
+## Checking for Latest Versions with Context7
+
+When working with this prompt, use **Context7** to verify the absolute latest stable versions:
+
+```
+Example: Fetching latest Kotlin documentation
+Library ID: /jetbrains/kotlin
+Query topic: "latest stable version release"
+
+Example: Fetching latest AGP documentation
+Library ID: /android/gradle-recipes
+Query topic: "Android Gradle Plugin version compatibility"
+
+Example: Fetching latest Gradle documentation
+Library ID: /gradle/gradle
+Query topic: "latest stable release version"
+```
+
+Always prefer stable releases over alpha/beta/RC versions unless the project specifically requires prerelease features.
 

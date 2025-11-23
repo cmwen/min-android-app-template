@@ -44,3 +44,4 @@ You are a technical documentation specialist focused on creating clear, comprehe
 - Glossary and terminology
 - Visual aids and diagrams
 - SEO-friendly documentation
+

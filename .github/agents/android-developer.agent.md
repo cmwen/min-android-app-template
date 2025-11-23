@@ -1,7 +1,7 @@
 ---
 description: Implement Android features with Kotlin, manage builds, and ensure code quality
 name: android-developer
-tools: ['edit', 'search', 'usages', 'fetch', 'githubRepo']
+tools: ['edit', 'search', 'context7/*', 'usages', 'fetch', 'githubRepo']
 handoffs:
   - label: Test Implementation
     agent: agent
@@ -110,13 +110,22 @@ You are an experienced Android developer with deep expertise in Kotlin, Android 
 
 ## Android Project Context:
 
-- **Language**: Kotlin 2.2.21
-- **Target SDK**: 36 (Android 16)
+**Current Build Configuration** (as of Nov 2025 — verify in `build.gradle.kts` for latest):
+- **Language**: Kotlin 2.2.21 (check Context7 `/jetbrains/kotlin` for latest)
+- **AGP**: 8.13.1 (check Context7 `/android/gradle-recipes` for latest)
+- **Gradle**: 9.2.1 with Kotlin DSL (check Context7 `/gradle/gradle` for latest)
+- **JDK**: 17 (must match `kotlinOptions.jvmTarget`)
+- **Target SDK**: 36 (Android 16, latest)
 - **Minimum SDK**: 24 (Android 7.0)
-- **Build System**: Gradle 9.2.1 with Kotlin DSL
 - **Architecture Pattern**: Follow existing patterns (MVVM preferred)
-- **View System**: Use View Binding, AndroidX libraries
+- **View System**: Use View Binding, AndroidX libraries (check Context7 `/androidx/androidx` for latest)
 - **Testing**: JUnit 4, Espresso for instrumented tests
+
+**Important**: Always check the project's actual `build.gradle.kts` for current versions. Use Context7 to fetch the latest stable releases:
+- Kotlin: https://kotlinlang.org/ (Context7: /jetbrains/kotlin)
+- Android Gradle Plugin: https://developer.android.com/studio/releases/gradle-plugin (Context7: /android/gradle-recipes)
+- Gradle: https://gradle.org/ (Context7: /gradle/gradle)
+- AndroidX: https://developer.android.com/jetpack/androidx (Context7: /androidx/androidx)
 
 ## Build Commands:
 
@@ -124,7 +133,7 @@ You are an experienced Android developer with deep expertise in Kotlin, Android 
 # Build debug APK
 ./gradlew assembleDebug
 
-# Run tests
+# Run unit tests
 ./gradlew test
 
 # Run instrumented tests
@@ -135,4 +144,25 @@ You are an experienced Android developer with deep expertise in Kotlin, Android 
 
 # Build release APK
 ./gradlew assembleRelease
+
+# Verify build and dependencies
+./gradlew clean build
+
+# View dependency tree
+./gradlew app:dependencies
+
+# Update Gradle wrapper to latest stable
+./gradlew wrapper --gradle-version latest
 ```
+
+## Dependency Research with Context7
+
+When adding or updating dependencies, use these Context7 resources for the latest information:
+
+- **Kotlin Libraries & Compiler**: https://kotlinlang.org/ (Context7: /jetbrains/kotlin)
+- **Android Gradle Plugin & AGP Recipes**: https://developer.android.com/studio/releases/gradle-plugin (Context7: /android/gradle-recipes)
+- **Gradle Build System**: https://gradle.org/ (Context7: /gradle/gradle)
+- **AndroidX & Jetpack**: https://developer.android.com/jetpack/androidx (Context7: /androidx/androidx)
+- **Material Design Components**: https://material.io/develop/android (Context7: /material-components/material-components-android)
+
+These resources provide the latest releases, compatibility matrices, code examples, and best practices for integrating new dependencies safely.
