@@ -1,6 +1,6 @@
-# Contributing to Min Android Template
+# Contributing to Min Flutter Template
 
-Thank you for considering contributing to this Android app template!
+Thank you for considering contributing to this Flutter app template!
 
 ## How to Use This Template
 
@@ -9,7 +9,7 @@ This is a **template repository**. To use it:
 1. Click "Use this template" on GitHub
 2. Create a new repository from this template
 3. Clone your new repository
-4. Start building your Android app!
+4. Start building your Flutter app!
 
 ## Improving the Template
 
@@ -19,7 +19,7 @@ If you'd like to improve this template itself, here's how:
 
 - Check if the issue already exists
 - Provide clear reproduction steps
-- Include your environment details (OS, Java version, etc.)
+- Include your environment details (OS, Flutter version, Dart version, etc.)
 - Share relevant error messages or logs
 
 ### Suggesting Enhancements
@@ -42,8 +42,10 @@ If you'd like to improve this template itself, here's how:
    - Keep changes minimal and focused
 4. **Test your changes**:
    ```bash
-   ./gradlew clean build
-   ./gradlew test
+   flutter clean
+   flutter pub get
+   flutter analyze
+   flutter test
    ```
 5. **Commit your changes**:
    ```bash
@@ -57,11 +59,12 @@ If you'd like to improve this template itself, here's how:
 
 ### Code Style Guidelines
 
-- Use Kotlin for Android code
-- Follow [Android Kotlin style guide](https://developer.android.com/kotlin/style-guide)
-- Use Kotlin DSL for Gradle files
+- Use Dart for all application code
+- Follow [Dart style guide](https://dart.dev/guides/language/effective-dart/style)
+- Use Flutter best practices and widget composition
 - Keep dependencies up to date but stable
-- Maintain compatibility with minimum SDK 24
+- Maintain null safety throughout
+- Use const constructors when possible
 
 ### What to Contribute
 
@@ -92,9 +95,10 @@ This template should remain:
 
 Before submitting a PR:
 
-- [ ] Build succeeds: `./gradlew build`
-- [ ] Tests pass: `./gradlew test`
-- [ ] Lint checks pass: `./gradlew lint`
+- [ ] Build succeeds: `flutter build apk`
+- [ ] Tests pass: `flutter test`
+- [ ] Code analysis passes: `flutter analyze`
+- [ ] Code is formatted: `flutter format .`
 - [ ] GitHub Actions workflows pass
 - [ ] Documentation is updated
 - [ ] Changes are backward compatible

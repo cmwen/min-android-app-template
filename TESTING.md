@@ -1,228 +1,363 @@
-# Testing the Template
+# Testing Guide
 
-This document provides guidance on how to test this Android app template.
+This document provides comprehensive testing guidelines for the Flutter application.
 
-## Environment Requirements
+## Overview
 
-To successfully build and test this template, you need:
+Flutter provides excellent built-in testing support at three levels:
+- **Unit Tests**: Test individual functions, methods, and classes
+- **Widget Tests**: Test individual widgets and their interactions
+- **Integration Tests**: Test complete app flows on real devices/emulators
 
-1. **JDK 17** or higher installed
-2. **Android SDK** with API level 34 installed
-3. **Network Access** to:
-   - maven.google.com (for Android dependencies)
-   - repo1.maven.org (for Maven Central)
-   - plugins.gradle.org (for Gradle plugins)
+## Running Tests
 
-## Local Testing
-
-### First-Time Setup
-
-1. Clone the repository:
+### All Tests
 ```bash
-git clone https://github.com/cmwen/cmwen-min-android-app-template.git
-cd cmwen-min-android-app-template
+# Run all tests
+flutter test
+
+# Run with coverage
+flutter test --coverage
+
+# Verbose output
+flutter test --verbose
 ```
 
-2. Make gradlew executable (Linux/Mac):
+### Specific Tests
 ```bash
-chmod +x gradlew
+# Run specific test file
+flutter test test/widget_test.dart
+
+# Run tests matching pattern
+flutter test --plain-name "counter"
 ```
 
-3. Build the project:
+### Watch Mode
 ```bash
-./gradlew build
+# Re-run tests on file changes
+flutter test --watch
 ```
 
-### Expected Build Output
+## Test Structure
 
-On the first build, Gradle will:
-1. Download Gradle wrapper if needed
-2. Download Android SDK build tools and libraries
-3. Download dependencies (AndroidX, Material Components, etc.)
-4. Compile the Kotlin code
-5. Generate build artifacts
+### Unit Tests
 
-Successful build should show:
+Location: `test/unit/`
+
+Example:
+```dart
+import 'package:flutter_test/flutter_test.dart';
+
+void main() {
+  group('Calculator', () {
+    test('adds two numbers', () {
+      expect(2 + 2, equals(4));
+    });
+
+    test('subtracts two numbers', () {
+      expect(5 - 3, equals(2));
+    });
+  });
+}
 ```
-BUILD SUCCESSFUL in Xs
+
+### Widget Tests
+
+Location: `test/widget_test.dart` or `test/widgets/`
+
+Example:
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:min_flutter_template/main.dart';
+
+void main() {
+  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MyApp());
+
+    // Verify that our counter starts at 0.
+    expect(find.text('0'), findsOneWidget);
+    expect(find.text('1'), findsNothing);
+
+    // Tap the '+' icon and trigger a frame.
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pump();
+
+    // Verify that our counter has incremented.
+    expect(find.text('0'), findsNothing);
+    expect(find.text('1'), findsOneWidget);
+  });
+}
 ```
 
-### Build Variants
+### Integration Tests
 
-Test all build variants:
+Location: `integration_test/`
 
+Setup:
 ```bash
-# Debug build
-./gradlew assembleDebug
-
-# Release build (unsigned)
-./gradlew assembleRelease
-
-# Beta build
-./gradlew assembleBeta
-
-# All variants
-./gradlew assemble
+# Add integration_test dependency to pubspec.yaml
+flutter pub add --dev integration_test
 ```
 
-### Running Tests
+Example:
+```dart
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
+import 'package:min_flutter_template/main.dart' as app;
 
+void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  testWidgets('End-to-end test', (WidgetTester tester) async {
+    app.main();
+    await tester.pumpAndSettle();
+
+    // Test your app flow
+    expect(find.text('0'), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pumpAndSettle();
+    expect(find.text('1'), findsOneWidget);
+  });
+}
+```
+
+Run integration tests:
 ```bash
-# Unit tests
-./gradlew test
-
-# Check lint
-./gradlew lint
-
-# All checks
-./gradlew check
+flutter test integration_test
 ```
 
-## Testing CI/CD Workflows
+## Test Coverage
 
-### GitHub Actions
-
-The workflows will automatically trigger on:
-
-1. **Build Workflow** - On push/PR to main or develop branches
-2. **Release Workflow** - On tag push (v*) or manual dispatch
-3. **Beta Workflow** - On push to beta/develop branches
-4. **CodeQL Workflow** - On push/PR to main/develop, or weekly
-
-### Testing Locally with act
-
-You can test GitHub Actions workflows locally using [act](https://github.com/nektos/act):
-
+### Generate Coverage
 ```bash
-# Install act (macOS)
-brew install act
+# Run tests with coverage
+flutter test --coverage
 
-# Test build workflow
-act -j build
-
-# Test with secrets
-act -j release --secret-file .secrets
+# View coverage report (requires lcov)
+genhtml coverage/lcov.info -o coverage/html
+open coverage/html/index.html
 ```
+
+### Coverage Goals
+- Aim for >80% coverage for critical business logic
+- Focus on testing user-facing features
+- Don't obsess over 100% coverage
+
+## Mocking
+
+### Using Mockito
+
+Add to `pubspec.yaml`:
+```yaml
+dev_dependencies:
+  mockito: ^5.4.0
+  build_runner: ^2.4.0
+```
+
+Example:
+```dart
+import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
+
+@GenerateMocks([ApiService])
+void main() {
+  test('fetches data from API', () async {
+    final mockApi = MockApiService();
+    when(mockApi.fetchData()).thenAnswer((_) async => 'test data');
+    
+    final result = await mockApi.fetchData();
+    expect(result, equals('test data'));
+    verify(mockApi.fetchData()).called(1);
+  });
+}
+```
+
+## Testing Best Practices
+
+### 1. Test Naming
+```dart
+// Good
+test('should return user when authentication succeeds', () {});
+testWidgets('should display error message when network fails', (tester) async {});
+
+// Bad
+test('test1', () {});
+testWidgets('widget test', (tester) async {});
+```
+
+### 2. Arrange-Act-Assert Pattern
+```dart
+test('adds item to cart', () {
+  // Arrange
+  final cart = ShoppingCart();
+  final item = Product('Widget', 9.99);
+  
+  // Act
+  cart.add(item);
+  
+  // Assert
+  expect(cart.items.length, equals(1));
+  expect(cart.total, equals(9.99));
+});
+```
+
+### 3. Widget Testing Tips
+```dart
+testWidgets('example', (WidgetTester tester) async {
+  // Use pumpWidget to build the widget tree
+  await tester.pumpWidget(const MaterialApp(home: MyWidget()));
+  
+  // Use pump() to trigger a single frame
+  await tester.pump();
+  
+  // Use pumpAndSettle() to wait for all animations
+  await tester.pumpAndSettle();
+  
+  // Find widgets
+  expect(find.text('Hello'), findsOneWidget);
+  expect(find.byType(TextField), findsWidgets);
+  expect(find.byKey(const Key('submit')), findsOneWidget);
+  
+  // Interact with widgets
+  await tester.tap(find.byIcon(Icons.add));
+  await tester.enterText(find.byType(TextField), 'test');
+  await tester.drag(find.byType(ListView), const Offset(0, -200));
+});
+```
+
+### 4. Test Organization
+```dart
+void main() {
+  group('UserRepository', () {
+    late UserRepository repository;
+    
+    setUp(() {
+      repository = UserRepository();
+    });
+    
+    tearDown(() {
+      repository.dispose();
+    });
+    
+    group('fetchUser', () {
+      test('returns user when successful', () {});
+      test('throws exception when not found', () {});
+    });
+    
+    group('updateUser', () {
+      test('updates user successfully', () {});
+      test('validates input', () {});
+    });
+  });
+}
+```
+
+## Golden Tests
+
+Golden tests compare widget screenshots against reference images:
+
+```dart
+testWidgets('golden test', (WidgetTester tester) async {
+  await tester.pumpWidget(const MyWidget());
+  await expectLater(
+    find.byType(MyWidget),
+    matchesGoldenFile('golden/my_widget.png'),
+  );
+});
+```
+
+Update golden files:
+```bash
+flutter test --update-goldens
+```
+
+## Debugging Tests
+
+### Print Debug Info
+```dart
+test('debug test', () {
+  final value = calculateSomething();
+  debugPrint('Value: $value');
+  expect(value, equals(42));
+});
+```
+
+### Run Single Test
+```bash
+# Run specific test by line number
+flutter test test/widget_test.dart:10
+
+# Run with debugging
+flutter test --pause-after-load
+```
+
+## CI/CD Integration
+
+Tests run automatically on:
+- Every push to main/develop
+- Every pull request
+- Before releases
+
+See `.github/workflows/build.yml` for configuration.
 
 ## Common Issues
 
-### Issue: Build fails with "Could not resolve"
-
-**Cause**: Network connectivity to maven.google.com or dependency repositories
-
-**Solution**: 
-- Check internet connection
-- Verify firewall/proxy settings
-- Try building again (transient network issues)
-
-### Issue: "SDK location not found"
-
-**Cause**: Android SDK not installed or ANDROID_HOME not set
-
-**Solution**:
-```bash
-# Linux/Mac
-export ANDROID_HOME=$HOME/Android/Sdk
-
-# Windows
-set ANDROID_HOME=C:\Users\YourUsername\AppData\Local\Android\Sdk
+### Issue: Tests time out
+```dart
+// Increase timeout
+test('long running test', () {
+  // test code
+}, timeout: const Timeout(Duration(seconds: 60)));
 ```
 
-Or create `local.properties` in project root:
-```properties
-sdk.dir=/path/to/android/sdk
+### Issue: Widget tests fail on CI
+```dart
+// Ensure MaterialApp wrapper
+await tester.pumpWidget(
+  const MaterialApp(
+    home: MyWidget(),
+  ),
+);
 ```
 
-### Issue: Java version mismatch
-
-**Cause**: Wrong Java version
-
-**Solution**:
-```bash
-# Check Java version
-java -version
-
-# Should show Java 17 or higher
-# If not, install JDK 17 and set JAVA_HOME
+### Issue: Async tests fail
+```dart
+// Use async/await properly
+test('async test', () async {
+  final result = await Future.delayed(
+    const Duration(seconds: 1),
+    () => 'done',
+  );
+  expect(result, equals('done'));
+});
 ```
 
-### Issue: Gradle daemon issues
+## Resources
 
-**Cause**: Corrupted Gradle cache
+- [Flutter Testing Documentation](https://docs.flutter.dev/testing)
+- [Widget Testing](https://docs.flutter.dev/cookbook/testing/widget/introduction)
+- [Integration Testing](https://docs.flutter.dev/testing/integration-tests)
+- [Mockito Package](https://pub.dev/packages/mockito)
+- [Flutter Test API](https://api.flutter.dev/flutter/flutter_test/flutter_test-library.html)
 
-**Solution**:
-```bash
-# Stop all Gradle daemons
-./gradlew --stop
-
-# Clean and rebuild
-./gradlew clean build
-```
-
-## Testing in Different Environments
-
-### Development Container
-
-Test using the included devcontainer:
-
-1. Open in VS Code with Remote - Containers extension
-2. Choose "Reopen in Container"
-3. Run `./gradlew build` in the integrated terminal
-
-### CI Environment
-
-The GitHub Actions workflows test in:
-- Ubuntu latest with JDK 17
-- Automated dependency caching
-- Parallel job execution
-
-### Local Android Studio
-
-1. Open Android Studio
-2. Open the project directory
-3. Wait for Gradle sync
-4. Build → Make Project
-5. Run tests from IDE
-
-## Verification Checklist
-
-Before committing changes or creating a release, verify:
-
-- [ ] `./gradlew clean build` succeeds
-- [ ] `./gradlew test` passes all tests
-- [ ] `./gradlew lint` shows no critical issues
-- [ ] All build variants compile successfully
-- [ ] App installs and runs on emulator/device
-- [ ] No security vulnerabilities in dependencies
-- [ ] GitHub Actions workflows pass
-- [ ] Documentation is up to date
-
-## Performance Benchmarks
-
-Expected build times on reasonable hardware:
-
-- **Clean build**: 1-3 minutes
-- **Incremental build**: 10-30 seconds
-- **Test execution**: 5-15 seconds
-
-## Debugging Build Issues
-
-Enable verbose logging:
+## Quick Reference
 
 ```bash
-# With stacktrace
-./gradlew build --stacktrace
+# Common commands
+flutter test                          # Run all tests
+flutter test --coverage               # With coverage
+flutter test test/widget_test.dart    # Specific file
+flutter test --update-goldens         # Update golden files
+flutter test --verbose                # Verbose output
+flutter test --watch                  # Watch mode
 
-# With full debug info
-./gradlew build --debug > build.log 2>&1
+# Coverage
+flutter test --coverage
+genhtml coverage/lcov.info -o coverage/html
 
-# Scan build performance
-./gradlew build --scan
+# Integration tests
+flutter test integration_test
+flutter drive --target=integration_test/app_test.dart
 ```
-
-## Additional Resources
-
-- [Gradle Documentation](https://docs.gradle.org/)
-- [Android Gradle Plugin Release Notes](https://developer.android.com/build/releases/gradle-plugin)
-- [GitHub Actions Documentation](https://docs.github.com/actions)
-- [Troubleshooting Builds](https://developer.android.com/studio/troubleshoot)

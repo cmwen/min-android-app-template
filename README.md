@@ -1,173 +1,213 @@
-# Minimal Android App Template
+# Minimal Flutter App Template
 
-A minimal Android app template with modern tooling and CI/CD setup.
+A minimal, clean Flutter application template designed to escape Android dependency hell! This template provides a simple starting point for Flutter projects with support for Android, iOS, Web, Linux, macOS, and Windows.
 
-## 🤖 New: AI-Assisted Development Guides
+## Why Flutter?
 
-**Building your first Android app with AI?** Check out our comprehensive guides:
-- 🌱 [**Beginner's Guide**](docs/AI_BEGINNER_GUIDE.md) - Never coded before? Start here!
-- 🎓 [**Intermediate Guide**](docs/AI_INTERMEDIATE_GUIDE.md) - Know programming but new to Android?
-- 🚀 [**Advanced Guide**](docs/AI_ADVANCED_GUIDE.md) - Experienced developer? Accelerate with AI!
-- 📝 [**Prompt Templates**](docs/AI_PROMPT_TEMPLATES.md) - Ready-to-use prompts for common tasks
-
-👉 **[Start with the AI Prompting Guide](AI_PROMPTING_GUIDE.md)** to learn how to effectively use AI assistants (ChatGPT, Claude, GitHub Copilot) to build Android apps!
+No more Gradle nightmares, dependency conflicts, or spending hours configuring build systems. Flutter just works! ✨
 
 ## Features
 
-- ✅ **Latest Android SDK 36** (Target SDK 36, Min SDK 24)
-- ✅ **Gradle 9.2.1** with Kotlin DSL
-- ✅ **AGP 8.13.0** (Android Gradle Plugin)
-- ✅ **Kotlin 2.2.21**
-- ✅ **AndroidX** libraries
-- ✅ **Material Design** components
-- ✅ **View Binding** enabled
+- 🚀 **Cross-platform**: Build for Android, iOS, Web, Linux, macOS, and Windows from a single codebase
+- 📦 **Simple Dependencies**: Manage packages with `pubspec.yaml` - no more Gradle hell
+- 🎨 **Material Design**: Beautiful UI components out of the box
+- 🔥 **Hot Reload**: See your changes instantly
+- ⚡ **Fast Development**: No more waiting for Gradle builds
+- 🧪 **Testing Built-in**: Widget, integration, and unit testing support
+- 📱 **Modern**: Using Flutter 3.10.1+ and Dart 3+
 
-## CI/CD Workflows
-
-### GitHub Actions
-- **Build** - Automated builds on push/PR to main and develop branches
-- **Release** - Self-signed release builds on tags (v*) or manual trigger
-- **Beta** - Beta builds on beta/develop branches with beta app ID suffix
-- **CodeQL** - Security code scanning on schedule and PRs
-
-## Website (Astro)
-
-This repository now includes a small static website built with Astro (v5.15) using a Startlight-inspired theme. The site lives in the `website/` folder and is published automatically to GitHub Pages via a GitHub Actions workflow.
-
-- Local preview: `cd website && npm install && npm run dev`
-- Build: `cd website && npm run build` (outputs `website/dist/`)
-- CI deploys `website/dist/` to GitHub Pages when a new GitHub Release is published (see `.github/workflows/deploy-website.yml`).
-
-Make sure to update `website/astro.config.mjs` with your GitHub Pages URL (replace `<USERNAME>`):
-
-```js
-site: 'https://<USERNAME>.github.io/min-android-app-template'
-```
-
-### Dependabot
-- Automated dependency updates with grouping to reduce PRs
-- Groups: AndroidX, Kotlin, Testing, Google/Material, Build Tools, GitHub Actions
-- Weekly updates on Mondays
-
-## Build Variants
-
-- **Debug** - Development builds with debugging enabled
-- **Release** - Production builds with ProGuard/R8 minification
-- **Beta** - Beta testing builds with .beta suffix
-
-## Getting Started
+## Quick Start
 
 ### Prerequisites
-- JDK 17 or higher
-- Android SDK with API 36
-- Gradle 9.2.1 (included via wrapper)
-- Internet access to maven.google.com for dependency downloads
 
-### Clone and Build
+- Flutter SDK 3.10.1 or higher
+- Dart 3.10.1 or higher
+- For Android: Android Studio or Android SDK
+- For iOS: Xcode (macOS only)
+
+### Installation
+
 ```bash
-git clone https://github.com/cmwen/cmwen-min-android-app-template.git
-cd cmwen-min-android-app-template
-./gradlew build
+# Clone this repository
+git clone https://github.com/yourusername/min-flutter-template.git
+cd min-flutter-template
+
+# Get dependencies
+flutter pub get
+
+# Run on your preferred platform
+flutter run
+
+# Or specify a device
+flutter run -d chrome        # Web
+flutter run -d macos          # macOS
+flutter run -d android        # Android
+flutter run -d ios            # iOS
 ```
 
-### Run Tests
+### Build
+
 ```bash
-./gradlew test
+# Build APK for Android
+flutter build apk
+
+# Build App Bundle for Android (Play Store)
+flutter build appbundle
+
+# Build for iOS
+flutter build ios
+
+# Build for Web
+flutter build web
+
+# Build for Desktop
+flutter build macos
+flutter build linux
+flutter build windows
 ```
-
-### Build Release APK
-```bash
-# Self-signed (for testing)
-./gradlew assembleRelease
-
-# With your own keystore
-export ANDROID_KEYSTORE_FILE=/path/to/your/keystore.jks
-export ANDROID_KEYSTORE_PASSWORD=your_store_password
-export ANDROID_KEY_ALIAS=your_key_alias
-export ANDROID_KEY_PASSWORD=your_key_password
-./gradlew assembleRelease
-```
-
-### Build Beta APK
-```bash
-./gradlew assembleBeta
-```
-
-## Development Container
-
-This project includes a devcontainer configuration for VS Code:
-- Pre-configured with JDK 17, Android SDK, and Gradle
-- Includes useful VS Code extensions
-- Ready for immediate development
-
-To use:
-1. Install Docker and VS Code Remote - Containers extension
-2. Open project in VS Code
-3. Click "Reopen in Container" when prompted
 
 ## Project Structure
 
 ```
-.
-├── app/                        # Main application module
-│   ├── src/
-│   │   └── main/
-│   │       ├── java/          # Kotlin/Java source files
-│   │       ├── res/           # Resources (layouts, strings, etc.)
-│   │       └── AndroidManifest.xml
-│   ├── build.gradle.kts       # App-level Gradle config
-│   └── proguard-rules.pro     # ProGuard rules
-├── .github/
-│   ├── workflows/             # GitHub Actions workflows
-│   └── dependabot.yml         # Dependabot configuration
-├── .devcontainer/             # Dev container configuration
-├── build.gradle.kts           # Root-level Gradle config
-├── settings.gradle.kts        # Gradle settings
-└── gradle/                    # Gradle wrapper files
+min_flutter_template/
+├── lib/
+│   └── main.dart           # Main application entry point
+├── test/
+│   └── widget_test.dart    # Widget tests
+├── android/                # Android-specific configuration
+├── ios/                    # iOS-specific configuration
+├── web/                    # Web-specific configuration
+├── linux/                  # Linux-specific configuration
+├── macos/                  # macOS-specific configuration
+├── windows/                # Windows-specific configuration
+├── pubspec.yaml            # Dependencies and project configuration
+└── analysis_options.yaml   # Linting rules
 ```
 
-## Customization
+## Development
 
-### Change Package Name
-1. Rename the package in `app/src/main/java/com/cmwen/minandroidtemplate/`
-2. Update `namespace` in `app/build.gradle.kts`
-3. Update `applicationId` in `app/build.gradle.kts`
+### Running Tests
 
-### Change App Name
-Edit `app/src/main/res/values/strings.xml`:
-```xml
-<string name="app_name">Your App Name</string>
+```bash
+# Run all tests
+flutter test
+
+# Run with coverage
+flutter test --coverage
+
+# Run specific test file
+flutter test test/widget_test.dart
 ```
 
-### Configure Signing for Release
-Set these secrets in GitHub repository settings:
-- `ANDROID_KEYSTORE_BASE64` - Base64 encoded keystore file
-- `ANDROID_KEYSTORE_PASSWORD` - Keystore password
-- `ANDROID_KEY_ALIAS` - Key alias
-- `ANDROID_KEY_PASSWORD` - Key password
+### Linting
 
-## Documentation
+```bash
+# Analyze code
+flutter analyze
 
-### AI-Assisted Development Guides
-- **[AI Prompting Guide](AI_PROMPTING_GUIDE.md)** - Complete guide to using AI for Android development
-- **[Beginner's Guide](docs/AI_BEGINNER_GUIDE.md)** - For those new to programming and Android
-- **[Intermediate Guide](docs/AI_INTERMEDIATE_GUIDE.md)** - For developers new to Android
-- **[Advanced Guide](docs/AI_ADVANCED_GUIDE.md)** - For experienced Android developers
-- **[Prompt Templates](docs/AI_PROMPT_TEMPLATES.md)** - Ready-to-use prompt templates
+# Format code
+flutter format .
+```
 
-### Technical Documentation
-- [AGENTS.md](AGENTS.md) - Agent configuration and instructions
-- [TESTING.md](TESTING.md) - Testing procedures
-- [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines
+### Adding Dependencies
 
-### External Resources
-- [Android Developer Guide](https://developer.android.com/)
-- [Gradle User Guide](https://docs.gradle.org/)
+Edit `pubspec.yaml` and run:
 
-## License
+```bash
+flutter pub get
+```
 
-This template is available for use under your preferred license.
+That's it! No Gradle sync, no dependency resolution nightmares! 🎉
+
+## CI/CD
+
+This template includes GitHub Actions workflows for:
+
+- **Build**: Automated builds for all platforms
+- **Test**: Run tests on every push
+- **Release**: Create releases with built artifacts
+- **Code Quality**: Static analysis and linting
+
+See `.github/workflows/` for configuration.
+
+## Configuration
+
+### App Name and Bundle ID
+
+Edit the following files:
+
+- `pubspec.yaml`: Update `name` and `description`
+- `android/app/build.gradle`: Update `applicationId`
+- `ios/Runner.xcodeproj/project.pbxproj`: Update `PRODUCT_BUNDLE_IDENTIFIER`
+
+### Version
+
+Update version in `pubspec.yaml`:
+
+```yaml
+version: 1.0.0+1
+```
+
+Format: `version: MAJOR.MINOR.PATCH+BUILD_NUMBER`
+
+## Resources
+
+- [Flutter Documentation](https://docs.flutter.dev/)
+- [Dart Language](https://dart.dev/)
+- [Flutter Packages](https://pub.dev/)
+- [Flutter Samples](https://flutter.github.io/samples/)
+- [Widget Catalog](https://docs.flutter.dev/ui/widgets)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
 ## Contributing
 
-This is a template repository. Feel free to use it as a starting point for your Android projects!
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Troubleshooting
+
+### Common Issues
+
+**Problem**: `flutter: command not found`
+```bash
+# Install Flutter
+# macOS:
+brew install --cask flutter
+
+# Or download from https://docs.flutter.dev/get-started/install
+```
+
+**Problem**: "No devices found"
+```bash
+# Check available devices
+flutter devices
+
+# Enable web
+flutter config --enable-web
+
+# Enable desktop
+flutter config --enable-macos-desktop
+flutter config --enable-linux-desktop
+flutter config --enable-windows-desktop
+```
+
+**Problem**: Dependency conflicts
+```bash
+# Update dependencies
+flutter pub upgrade
+
+# Clean and rebuild
+flutter clean
+flutter pub get
+```
+
+## Migrated from Android
+
+This project was migrated from a pure Android template to escape dependency hell. Welcome to the Flutter side! 🦋
+
+---
+
+**Say goodbye to Android dependency hell and hello to Flutter simplicity!** 🚀
