@@ -1,41 +1,25 @@
 version: 2
 updates:
-  # Enable version updates for Gradle dependencies
-  - package-ecosystem: "gradle"
+  # Pub dependencies
+  - package-ecosystem: "pub"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "monday"
     open-pull-requests-limit: 5
     groups:
-      # Group all AndroidX dependencies together
-      androidx:
+      dependencies:
         patterns:
-          - "androidx.*"
-      # Group all Kotlin dependencies together
-      kotlin:
+          - "*"
+        exclude-patterns:
+          - "flutter_lints"
+          - "flutter_test"
+      dev-dependencies:
         patterns:
-          - "org.jetbrains.kotlin*"
-      # Group all testing dependencies together
-      testing:
-        patterns:
-          - "*junit*"
-          - "*espresso*"
-          - "*test*"
-      # Group all Google/Material dependencies together
-      google:
-        patterns:
-          - "com.google.*"
-      # Group all build tools together
-      build-tools:
-        patterns:
-          - "com.android.tools.build*"
-          - "gradle*"
-    labels:
-      - "dependencies"
-      - "gradle"
-
-  # Enable version updates for GitHub Actions
+          - "flutter_lints"
+          - "flutter_test"
+  
+  # GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -46,6 +30,3 @@ updates:
       github-actions:
         patterns:
           - "*"
-    labels:
-      - "dependencies"
-      - "github-actions"
