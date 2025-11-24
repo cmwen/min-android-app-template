@@ -1,4 +1,4 @@
-name: Flutter Release
+name: Android Release
 
 on:
   push:
@@ -33,15 +33,6 @@ jobs:
     - name: Build App Bundle
       run: flutter build appbundle --release
     
-    - name: Build Web
-      run: flutter build web --release
-    
-    - name: Create Web Archive
-      run: |
-        cd build/web
-        zip -r ../../web-release.zip .
-        cd ../..
-    
     - name: Get version
       id: version
       run: |
@@ -61,6 +52,5 @@ jobs:
         files: |
           build/app/outputs/flutter-apk/app-release.apk
           build/app/outputs/bundle/release/app-release.aab
-          web-release.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

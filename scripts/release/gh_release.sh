@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Helper script to validate release preconditions and trigger the release workflow
-# Requirements: gh (GitHub CLI) authenticated, node/npm (if website exists), git
+# Requirements: gh (GitHub CLI) authenticated, flutter (optional), git
 
 BRANCH=main
 WORKFLOW_FILE=release.yml
@@ -82,18 +82,13 @@ if [ "$SKIP_CHECKS" = false ]; then
     fi
   fi
 
-  # Quick docs check
-  if [ -d website ]; then
-    echo "Running a quick website build to validate docs..."
-    if command -v npm >/dev/null 2>&1; then
-      (cd website && npm ci --silent) || { echo "npm ci failed in website/ — ensure your docs are up to date." >&2; exit 5; }
-      (cd website && npm run build --silent) || { echo "Website build failed — fix docs before releasing." >&2; exit 6; }
-      echo "Website build passed.";
-    else
-      echo "npm not installed — skipping website build check (you can use --skip-checks)." >&2
-    fi
+  # Flutter build check
+  if command -v flutter >/dev/null 2>&1; then
+    echo "Running Flutter analysis to validate code..."
+    flutter analyze || { echo "Flutter analysis failed — fix issues before releasing." >&2; exit 5; }
+    echo "Flutter analysis passed.";
   else
-    echo "No website/ directory found — skipping docs build check.";
+    echo "Flutter not installed — skipping build check (you can use --skip-checks)." >&2
   fi
 
   # Changelog check (soft)

@@ -1,16 +1,16 @@
 # Agent Configuration and Instructions
 
-This document provides guidance for AI agents and automated tools working with this Flutter template repository.
+This document provides guidance for AI agents and automated tools working with this Flutter Android template repository.
 
 ## Repository Overview
 
-This is a minimal Flutter application template designed to serve as a starting point for cross-platform projects. It follows modern Flutter development practices and includes comprehensive CI/CD setup.
+This is a minimal Flutter application template designed primarily for Android development. It follows modern Flutter development practices and includes CI/CD setup for Android builds.
 
 ## Key Technologies
 
 - **Framework**: Flutter 3.10.1+
 - **Language**: Dart 3.10.1+
-- **Platforms**: Android, iOS, Web, Linux, macOS, Windows
+- **Primary Platform**: Android
 - **Package Manager**: pub (pubspec.yaml)
 - **Testing**: flutter_test, Widget testing
 - **Linting**: flutter_lints 6.0.0
@@ -28,8 +28,6 @@ flutter run
 # Build release
 flutter build apk           # Android APK
 flutter build appbundle     # Android App Bundle
-flutter build ios           # iOS
-flutter build web           # Web
 
 # Run tests
 flutter test
@@ -38,14 +36,16 @@ flutter test
 flutter analyze
 ```
 
-## Migration Notes
+## Project Organization
 
-This project was migrated from an Android-only template to Flutter to escape:
-- ❌ Gradle dependency conflicts
-- ❌ Long build times
-- ❌ Complex configuration
+This template is organized with Android as the primary platform:
+- Android configuration is in the `android/` folder at the root
+- Other platform configurations are archived in `archived/` folder
+- Focus on Android-first development while maintaining Flutter's cross-platform capabilities
 
-Flutter benefits:
-- ✅ Simple dependency management
-- ✅ Fast hot reload
-- ✅ Cross-platform from single codebase
+## Development Notes
+
+- Primary target: Android applications
+- Clean, minimal project structure
+- Simple dependency management via pubspec.yaml
+- Fast development with hot reload

@@ -1,6 +1,6 @@
-# Contributing to Min Flutter Template
+# Contributing to Min Android App Template
 
-Thank you for considering contributing to this Flutter app template!
+Thank you for considering contributing to this Flutter Android app template!
 
 ## How to Use This Template
 
@@ -87,6 +87,7 @@ If you'd like to improve this template itself, here's how:
 
 This template should remain:
 - **Minimal**: Only essential files and dependencies
+- **Android-focused**: Primarily targeting Android development
 - **General**: Not specific to any app domain
 - **Modern**: Using current best practices
 - **Documented**: Clear and helpful documentation

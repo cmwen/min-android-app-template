@@ -1,13 +1,13 @@
 # Testing Guide
 
-This document provides comprehensive testing guidelines for the Flutter application.
+This document provides comprehensive testing guidelines for the Flutter Android application.
 
 ## Overview
 
 Flutter provides excellent built-in testing support at three levels:
 - **Unit Tests**: Test individual functions, methods, and classes
 - **Widget Tests**: Test individual widgets and their interactions
-- **Integration Tests**: Test complete app flows on real devices/emulators
+- **Integration Tests**: Test complete app flows on Android devices/emulators
 
 ## Running Tests
 
