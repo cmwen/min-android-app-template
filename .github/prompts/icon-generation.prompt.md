@@ -1,83 +1,110 @@
-# Icon generation — design- and code-friendly prompt
+# Icon generation — Flutter cross-platform prompt
 
-Purpose: concise, reusable prompt for generating app icons (SVG / PNG / VectorDrawable) and adaptive launcher icons for Android. Designed to work with LLMs (Copilot Chat) and image generation models (Stable Diffusion, DALL·E, etc.).
+Purpose: concise, reusable prompt for generating app icons (SVG / PNG) and launcher icons for Flutter cross-platform apps. Designed to work with LLMs (Copilot Chat) and image generation models (DALL·E, etc.).
 
 Use this prompt to:
 - Create consistent, accessible, and platform-ready icons
-- Produce SVG markup, or Android VectorDrawable XML
-- Produce image-generation prompts for raster or vector outputs (PNG/SVG)
+- Produce SVG markup or PNG assets
+- Produce image-generation prompts for app icons
 
 Important constraints (project-specific):
-- Prefer vector first (SVG or Android VectorDrawable) whenever possible
+- Prefer vector first (SVG) whenever possible
 - Keep icons simple and legible at small sizes (24x24, 48x48)
 - Provide transparent backgrounds for app icons when requested
 - Use the project's color palette or provide color recommendations with hex codes
 
-Android-specific sizing & placements (copyable checklist):
-- Action / UI icons (small): 24x24dp (provide at 1x and convert to densities)
-- Launcher icons (classic mipmap): mdpi 48×48 px, hdpi 72×72 px, xhdpi 96×96 px, xxhdpi 144×144 px, xxxhdpi 192×192 px
-- Adaptive icons: provide separate `foreground` and `background` layers (foreground should be centered and respect a safe zone so system masks work correctly)
+## Flutter Icon Locations
 
-File locations / naming (Android):
-- Place vector drawables in `app/src/main/res/drawable/` as `ic_<name>.xml` (e.g., `ic_search.xml`)
-- Launcher images go in `app/src/main/res/mipmap-*/ic_launcher.png` (or `ic_launcher_foreground.xml` for adaptive foreground vector)
+**App Icons (Launcher)**:
+- Android: `android/app/src/main/res/mipmap-*/` (ic_launcher.png)
+- iOS: `ios/Runner/Assets.xcassets/AppIcon.appiconset/`
+- Web: `web/icons/` (Icon-192.png, Icon-512.png, Icon-maskable-192.png, Icon-maskable-512.png)
+- macOS: `macos/Runner/Assets.xcassets/AppIcon.appiconset/`
+- Windows: `windows/runner/resources/app_icon.ico`
+- Linux: `linux/` (set in CMakeLists.txt)
 
-How to ask the model (pattern):
-1. Identify the icon purpose and scale level (UI control vs launcher)
-2. Ask for output format(s) required (SVG, VectorDrawable XML, PNG at specific sizes)
-3. Provide style constraints (flat / minimal / outline / filled / rounded corners)
-4. Give color palette or allow suggestions and ask for hex codes
-5. Request alt text, accessibility notes, and filename + path
+**UI Icons**:
+- Place in `assets/icons/` and register in `pubspec.yaml`
+- Use Flutter's built-in Icons class when possible
+- For custom icons, consider using flutter_svg package
 
-Examples you can copy
+## Icon Sizing
 
-1) Generate a small UI icon (SVG + VectorDrawable)
+**Android Launcher (mipmap)**:
+- mdpi: 48×48 px
+- hdpi: 72×72 px
+- xhdpi: 96×96 px
+- xxhdpi: 144×144 px
+- xxxhdpi: 192×192 px
+
+**iOS App Icon**:
+- 20pt, 29pt, 40pt, 60pt, 76pt, 83.5pt at 1x, 2x, 3x scales
+- 1024×1024 px for App Store
+
+**Web Icons**:
+- 192×192 px (Icon-192.png)
+- 512×512 px (Icon-512.png)
+- 192×192 px maskable (Icon-maskable-192.png)
+- 512×512 px maskable (Icon-maskable-512.png)
+
+**macOS App Icon**:
+- 16, 32, 64, 128, 256, 512, 1024 px
+
+## Example Prompts
+
+### 1) Generate a small UI icon (SVG)
 
 "Create a simple, single-color `search` icon for app UI (24x24). Provide:
-- a clean SVG with viewBox 0 0 24 24 and a compact single-path <path> with stroke/fill suited for small display
-- an Android VectorDrawable conversion XML with the same geometry
-- a recommended filename `app/src/main/res/drawable/ic_search.xml` and one-line alt text for accessibility
-Constraints: stroke width appropriate for 24px, single color (use #1F2937 or suggest a high-contrast color)."
+- a clean SVG with viewBox 0 0 24 24 and a compact single-path
+- recommended filename `assets/icons/ic_search.svg`
+- one-line alt text for accessibility
+Constraints: single color (use #1F2937 or suggest a high-contrast color)."
 
-2) Produce an adaptive launcher icon (foreground + background)
+### 2) Generate app launcher icon
 
-"Design an app launcher icon for feature 'Notes' — style: flat, minimal, rounded corners, primary accent color #0057D9. Provide:
-- a foreground SVG (transparent background) that is centered and can be used as the adaptive foreground
-- a solid background color suggestion and hex for the background layer
-- export-ready PNG files for mipmap sizes: 192x192, 144x144, 96x96, 72x72, 48x48
-- alt text and recommended filenames: `mipmap-xxxhdpi/ic_launcher.png`, `drawable/ic_launcher_foreground.xml` (VectorDrawable if suitable)
-Constraints: simple silhouette, good contrast at small sizes, no excessive detail in the foreground layer."
+"Design an app launcher icon for a Notes app — style: flat, minimal, rounded corners, primary accent color #0057D9. Provide:
+- a 1024×1024 source image
+- export-ready PNG files for all Android mipmap sizes
+- iOS app icon set
+- Web icons (192px, 512px, maskable versions)
+- alt text and recommended filenames
+Constraints: simple silhouette, good contrast at small sizes."
 
-3) Image-generation prompt for a model like DALL·E/SD
+### 3) Image-generation prompt
 
-"Create a clean, flat-style SVG icon for a 'sync' action. Requirements:
-- Transparent background
-- Simple two-tone palette: primary #0EA5E9, secondary #0F172A (dark)
-- Focus on a minimalist circular arrow symbol, centered, stroke style, no text
-- Provide outputs: SVG (optimized), PNG 512x512, PNG 256x256
-- Include the icon's suggested filename(s), recommended scale, and one-line accessibility description
-Negative prompts: avoid photorealism, gradients, glows, text, heavy shadows."
+"Create a clean, flat-style app icon. Requirements:
+- Transparent or solid background (specify preference)
+- Simple two-tone palette: primary #0EA5E9, secondary #0F172A
+- Minimalist symbol, centered, no text
+- Provide outputs: PNG 1024x1024 (source), then resize for all platforms
+Negative prompts: avoid photorealism, gradients, text, heavy shadows."
 
-Additional tips for the model
-- Always include the primary color hex code and alternate suggestions
-- For VectorDrawable: prefer path data that keeps the viewBox within 24x24 or 48x48 for UI icons
-- For adaptive icons: ensure foreground has no overflow and respects center-safe area
+## Using flutter_launcher_icons
 
-When to use this prompt
-- Creating new UI/system icons (toolbar, nav) or launcher assets
-- Converting a visual design to a platform-ready VectorDrawable
-- Generating inspiration or finished PNG/SVG assets from image models
+For automated icon generation, use the flutter_launcher_icons package:
 
-Troubleshooting
-- If the icon looks fuzzy at small sizes, ask the model to simplify shapes and increase stroke contrast
-- If VectorDrawable XML doesn't render, ask for simplified paths with integer coordinates or a single path instead of many compounds
+1. Add to `pubspec.yaml`:
+```yaml
+dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
 
-Copy/paste quick templates
+flutter_launcher_icons:
+  android: true
+  ios: true
+  web:
+    generate: true
+  windows:
+    generate: true
+  macos:
+    generate: true
+  image_path: "assets/icon/app_icon.png"
+```
 
-- Minimal UI icon → SVG + VectorDrawable
-  "Create a minimal {icon_name} UI icon sized 24x24. Output SVG (viewBox 0 0 24 24) + Android VectorDrawable XML. Single color {hex} suitable for dark & light backgrounds. Provide file path and alt text."
+2. Run: `flutter pub run flutter_launcher_icons`
 
-- Launcher adaptive icon
-  "Create an adaptive launcher icon for '{app_name}' with a flat style focusing on {theme}. Output: foreground SVG (transparent), suggested background color, PNG exports for mdpi/hdpi/xhdpi/xxhdpi/xxxhdpi and recommended filenames."
+## Tips
 
-Use this prompt with Copilot, Copilot Chat, or any image model. Update the prompt over time to match brand style and platform requirements.
+- Always include primary color hex code and alternate suggestions
+- For UI icons, keep viewBox within 24x24 or 48x48
+- Test icons at small sizes to ensure legibility
+- Consider dark/light mode variations

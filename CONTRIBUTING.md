@@ -78,7 +78,7 @@ If you'd like to improve this template itself, here's how:
 
 **What to avoid:**
 - Adding app-specific features
-- Including opinionated libraries
+- Including opinionated state management libraries
 - Complex architectural patterns
 - UI/UX customizations
 - Domain-specific code
@@ -90,6 +90,7 @@ This template should remain:
 - **General**: Not specific to any app domain
 - **Modern**: Using current best practices
 - **Documented**: Clear and helpful documentation
+- **AI-Friendly**: Easy to customize with AI assistants
 
 ### Testing Guidelines
 
@@ -98,7 +99,7 @@ Before submitting a PR:
 - [ ] Build succeeds: `flutter build apk`
 - [ ] Tests pass: `flutter test`
 - [ ] Code analysis passes: `flutter analyze`
-- [ ] Code is formatted: `flutter format .`
+- [ ] Code is formatted: `dart format .`
 - [ ] GitHub Actions workflows pass
 - [ ] Documentation is updated
 - [ ] Changes are backward compatible

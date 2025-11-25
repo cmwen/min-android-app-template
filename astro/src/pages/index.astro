@@ -1,10 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 ---
-<BaseLayout title="min-android-app-template">
+<BaseLayout title="min-flutter-template">
   <section>
     <h2>Welcome 👋</h2>
-    <p class="lead">This is the new static site for the <strong>min-android-app-template</strong>. It uses an Astro Startlight-inspired layout and will be published to GitHub Pages.</p>
+    <p class="lead">A minimal <strong>Flutter</strong> app template for cross-platform development. Build for Android, iOS, Web, and Desktop from a single codebase.</p>
 
     <div class="card">
       <h3>What's here</h3>
@@ -18,33 +18,36 @@ import BaseLayout from '../layouts/BaseLayout.astro'
     <div class="card">
       <h3>Features</h3>
       <ul>
-        <li>Modern Android template with Gradle Kotlin DSL</li>
-        <li>Target SDK 36, Min SDK 24 and Kotlin tooling ready</li>
-        <li>View Binding, Material components, and CI workflows</li>
-        <li>Lightweight website & automatic GitHub Pages deployment</li>
+        <li>Flutter 3.10.1+ with Material Design 3</li>
+        <li>Cross-platform: Android, iOS, Web, macOS, Linux, Windows</li>
+        <li>Simple dependency management with pubspec.yaml</li>
+        <li>CI/CD workflows with signed release support</li>
+        <li>AI-friendly customization points</li>
       </ul>
     </div>
 
     <div class="card">
       <h3>Download / Release</h3>
-      <p class="lead">Get a packaged release from GitHub Releases (signed or self-signed APK / artifacts).</p>
+      <p class="lead">Get a packaged release from GitHub Releases (APK, App Bundle, Web).</p>
       <p><a href="https://github.com/cmwen/min-android-app-template/releases/latest" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">Download latest release →</a></p>
     </div>
 
     <div class="card">
-      <h3>Quick install</h3>
-      <p class="lead">Want to get started quickly? Follow the detailed install guide.</p>
+      <h3>Quick start</h3>
+      <p class="lead">Get started in minutes with Flutter.</p>
       <pre style="background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;margin-top:8px;overflow:auto">git clone https://github.com/cmwen/min-android-app-template.git
 cd min-android-app-template
-./gradlew assembleDebug</pre>
+flutter pub get
+flutter run</pre>
       <p style="margin-top:8px"><a href="/install" style="color:var(--accent);text-decoration:none">Open full install guide →</a></p>
     </div>
 
     <div class="card">
       <h3>Next steps</h3>
       <ol>
-        <li>Customize the site content and images as needed</li>
-        <li>Adjust the deploy config in <code>.github/workflows/gh-pages.yml</code> if you publish from a different branch</li>
+        <li>Customize <code>lib/main.dart</code> with your app</li>
+        <li>Update <code>pubspec.yaml</code> with your app name</li>
+        <li>Configure <code>astro/astro.config.mjs</code> for your GitHub Pages URL</li>
       </ol>
     </div>
   </section>

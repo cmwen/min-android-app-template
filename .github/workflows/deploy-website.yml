@@ -1,4 +1,4 @@
-name: Build and deploy website to GitHub Pages
+name: Build and deploy Astro site to GitHub Pages
 
 on:
   release:
@@ -23,8 +23,8 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install & build (website)
-        working-directory: website
+      - name: Install & build (astro)
+        working-directory: astro
         run: |
           npm ci
           npm run build
@@ -32,7 +32,7 @@ jobs:
       - name: Upload static build
         uses: actions/upload-pages-artifact@v4
         with:
-          path: website/dist
+          path: astro/dist
 
   deploy:
     runs-on: ubuntu-latest

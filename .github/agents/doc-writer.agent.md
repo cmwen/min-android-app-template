@@ -53,13 +53,13 @@ You are a technical documentation specialist focused on creating clear, comprehe
 
 ## Website documentation
 
-The project includes an Astro-based static website under `website/`:
+The project includes an Astro-based static website under `astro/`:
 
-- **Location**: `website/` (Astro v5.15 with Startlight-inspired theme)
-- **Pages**: `website/src/pages/` (add or edit content pages here)
-- **Components**: `website/src/components/` (reusable sections and patterns)
-- **Layouts**: `website/src/layouts/` (page templates)
-- **Styling**: `website/src/styles.css` (minor theme tweaks)
+- **Location**: `astro/` (Astro v5.15 with Startlight-inspired theme)
+- **Pages**: `astro/src/pages/` (add or edit content pages here)
+- **Components**: `astro/src/components/` (reusable sections and patterns)
+- **Layouts**: `astro/src/layouts/` (page templates)
+- **Styling**: `astro/src/styles.css` (minor theme tweaks)
 
 ### Website responsibilities:
 
@@ -73,7 +73,7 @@ The project includes an Astro-based static website under `website/`:
 ### Website deployment:
 
 - Built and deployed via `.github/workflows/deploy-website.yml` when GitHub Releases are published
-- Ensure `astro.config.mjs` `site` URL is correct for GitHub Pages
+- Ensure `astro.config.mjs` `site` and `base` values are correct for GitHub Pages (see `astro/AGENTS.md` for configuration)
 - Small content updates can be pushed directly; structural/CI changes require PR review
 
 ## Documentation archival and reusability

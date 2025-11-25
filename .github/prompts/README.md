@@ -10,32 +10,14 @@ For more information, see: https://code.visualstudio.com/docs/copilot/customizat
 
 ## Available Prompts
 
-### android-dependency-compatibility.md
-
-**Purpose**: Ensures all Android dependency additions and updates maintain compatibility with the project's build configuration.
-
-**Key Guidelines**:
-- Validates against SDK requirements (minSdk 24, targetSdk 36)
-- Checks Kotlin version compatibility (2.2.21)
-- Verifies AGP and Gradle compatibility (8.13.1 / 9.2.1)
-- Ensures JDK 17 compatibility
-- Provides a checklist for local build validation
-- Includes common issues and solutions
-
-**When to Use**:
-- Adding new dependencies to `app/build.gradle.kts`
-- Updating existing dependency versions
-- Troubleshooting build failures related to dependencies
-
 ### icon-generation.md
 
-**Purpose**: Helps designers and developers create consistent, platform-ready icons (SVG, PNG, Android VectorDrawable) and adaptive launcher assets. Includes prompt templates, Android sizing guidance, filename conventions, and examples for use with Copilot, Copilot Chat, and image-generation models.
+**Purpose**: Helps designers and developers create consistent, platform-ready icons (SVG, PNG, Flutter assets) and launcher assets. Includes prompt templates, sizing guidance, filename conventions, and examples for use with Copilot, Copilot Chat, and image-generation models.
 
 **When to Use**:
 - When creating UI or launcher icons
-- When converting a design to VectorDrawable for Android
-- When producing export-ready PNG/SVG files for multiple densities
-- Reviewing dependency compatibility during code reviews
+- When producing export-ready PNG/SVG files for Flutter assets
+- Generating app icons for multiple platforms (Android, iOS, Web)
 
 ## Contributing Custom Prompts
 
@@ -48,14 +30,11 @@ When adding new custom prompts:
 5. Include troubleshooting guidance
 6. Link to relevant documentation
 
-## Project Dependencies Reference
+## Project Configuration Reference
 
-Current build configuration:
-- **Kotlin**: 2.2.21
-- **AGP**: 8.13.1
-- **Gradle**: 9.2.1
-- **JDK**: 17
-- **Target SDK**: 36
-- **Minimum SDK**: 24
+This is a Flutter project. Current configuration:
+- **Flutter**: 3.10.1+
+- **Dart**: 3.10.1+
+- **Platforms**: Android, iOS, Web, Linux, macOS, Windows
 
-For the latest dependency versions, check `app/build.gradle.kts` and `build.gradle.kts`.
+For the latest dependency versions, check `pubspec.yaml`.
