@@ -1,7 +1,15 @@
 ---
 description: Research and analyze technical requirements, dependencies, and best practices
 name: researcher
-tools: ['edit', 'search', 'fetch', 'githubRepo', 'usages', 'context7/*']
+tools:
+  - edit
+  - search
+  - fetch
+  - githubRepo
+  - usages
+  - context7/*
+  - codebase
+  - terminal
 handoffs:
   - label: Share Findings with Designer
     agent: ux-designer

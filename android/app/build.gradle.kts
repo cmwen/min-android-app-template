@@ -58,6 +58,14 @@ android {
         versionName = flutter.versionName
     }
 
+    // Build optimization settings
+    buildFeatures {
+        buildConfig = false
+        aidl = false
+        renderScript = false
+        shaders = false
+    }
+
     signingConfigs {
         if (keystorePropertiesFile.exists()) {
             create("release") {
@@ -70,7 +78,19 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Faster debug builds
+            isMinifyEnabled = false
+            isShrinkResources = false
+        }
         release {
+            // Enable R8 code shrinking and resource shrinking for smaller APK
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
             // Use release signing config if available, otherwise fall back to debug
             signingConfig = if (keystorePropertiesFile.exists()) {
                 signingConfigs.getByName("release")
@@ -79,8 +99,23 @@ android {
             }
         }
     }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
 }
 
 flutter {
     source = "../.."
+}
+
+// Force JVM 17 for all dependency projects
+afterEvaluate {
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class).all {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        }
+    }
 }

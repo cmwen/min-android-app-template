@@ -1,7 +1,15 @@
 ---
 description: Design system architecture, technical structure, and design patterns
 name: architect
-tools: ['edit', 'search', 'context7/*', 'usages', 'fetch', 'githubRepo']
+tools:
+  - edit
+  - search
+  - context7/*
+  - usages
+  - fetch
+  - githubRepo
+  - codebase
+  - terminal
 handoffs:
   - label: Implement Architecture
     agent: flutter-developer

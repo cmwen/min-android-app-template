@@ -1,7 +1,15 @@
 ---
 description: Create clear, comprehensive documentation and guides
 name: doc-writer
-tools: ['edit', 'search', 'context7/*', 'usages', 'fetch', 'githubRepo', 'codebase']
+tools:
+  - edit
+  - search
+  - context7/*
+  - usages
+  - fetch
+  - githubRepo
+  - codebase
+  - terminal
 ---
 
 # Doc Writer Agent

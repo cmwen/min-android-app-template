@@ -14,6 +14,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -22,11 +23,24 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'astro/package-lock.json'
+
+      # Cache Astro build artifacts
+      - name: Cache Astro build
+        uses: actions/cache@v4
+        with:
+          path: |
+            astro/node_modules
+            astro/.astro
+          key: ${{ runner.os }}-astro-${{ hashFiles('astro/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-astro-
 
       - name: Install & build (astro)
         working-directory: astro
         run: |
-          npm ci
+          npm ci --prefer-offline
           npm run build
 
       - name: Upload static build

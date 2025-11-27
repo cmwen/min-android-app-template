@@ -1,7 +1,15 @@
 ---
 description: Define features, requirements, and product strategy
 name: product-owner
-tools: ['edit', 'search', 'fetch', 'githubRepo', 'usages', 'context7/*']
+tools: 
+  - edit
+  - search
+  - fetch
+  - githubRepo
+  - usages
+  - context7/*
+  - codebase
+  - terminal
 handoffs:
   - label: Research Feasibility
     agent: researcher
