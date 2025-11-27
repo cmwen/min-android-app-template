@@ -110,10 +110,20 @@ fi
 
 echo -e "\n${YELLOW}🔄 Updating files...${NC}\n"
 
+# Detect current values from the project files
+CURRENT_APP_NAME=$(grep "^name:" pubspec.yaml | head -1 | sed 's/name: *//')
+CURRENT_NAMESPACE=$(grep "namespace = " android/app/build.gradle.kts | head -1 | sed 's/.*namespace = "\(.*\)"/\1/')
+
+echo -e "   ${BLUE}Detected current values:${NC}"
+echo -e "   - App name: $CURRENT_APP_NAME"
+echo -e "   - Package: $CURRENT_NAMESPACE"
+echo ""
+
 # 1. Update pubspec.yaml
 echo -e "   ${BLUE}[1/5]${NC} Updating pubspec.yaml..."
-sed -i "s/^name: min_flutter_template/name: $APP_NAME/" pubspec.yaml
-sed -i "s/description: \"A minimal Android Flutter application template - escape Android dependency hell!\"/description: \"$APP_DISPLAY_NAME - Built with min-android-app-template\"/" pubspec.yaml
+sed -i "s/^name: $CURRENT_APP_NAME/name: $APP_NAME/" pubspec.yaml
+# Update description - match any existing description
+sed -i "s/^description: .*/description: \"$APP_DISPLAY_NAME - Built with min-android-app-template\"/" pubspec.yaml
 echo -e "   ${GREEN}✓${NC} pubspec.yaml updated"
 
 # 2. Update lib/main.dart
@@ -123,18 +133,20 @@ echo -e "   ${GREEN}✓${NC} lib/main.dart updated"
 
 # 3. Update test/widget_test.dart
 echo -e "   ${BLUE}[3/5]${NC} Updating test/widget_test.dart..."
-sed -i "s/import 'package:min_flutter_template\/main.dart';/import 'package:$APP_NAME\/main.dart';/" test/widget_test.dart
+sed -i "s/import 'package:$CURRENT_APP_NAME\/main.dart';/import 'package:$APP_NAME\/main.dart';/" test/widget_test.dart
 echo -e "   ${GREEN}✓${NC} test/widget_test.dart updated"
 
 # 4. Update android/app/build.gradle.kts
 echo -e "   ${BLUE}[4/5]${NC} Updating android/app/build.gradle.kts..."
-sed -i "s/namespace = \"com.cmwen.min_flutter_template\"/namespace = \"$PACKAGE_NAME\"/" android/app/build.gradle.kts
-sed -i "s/applicationId = \"com.cmwen.min_flutter_template\"/applicationId = \"$PACKAGE_NAME\"/" android/app/build.gradle.kts
+# Use a pattern that matches any namespace/applicationId
+sed -i "s/namespace = \"$CURRENT_NAMESPACE\"/namespace = \"$PACKAGE_NAME\"/" android/app/build.gradle.kts
+sed -i "s/applicationId = \"$CURRENT_NAMESPACE\"/applicationId = \"$PACKAGE_NAME\"/" android/app/build.gradle.kts
 echo -e "   ${GREEN}✓${NC} android/app/build.gradle.kts updated"
 
 # 5. Update android/app/src/main/AndroidManifest.xml
 echo -e "   ${BLUE}[5/5]${NC} Updating AndroidManifest.xml..."
-sed -i "s/android:label=\"min_flutter_template\"/android:label=\"$APP_DISPLAY_NAME\"/" android/app/src/main/AndroidManifest.xml
+# Match any current label
+sed -i "s/android:label=\"[^\"]*\"/android:label=\"$APP_DISPLAY_NAME\"/" android/app/src/main/AndroidManifest.xml
 echo -e "   ${GREEN}✓${NC} AndroidManifest.xml updated"
 
 echo -e "\n${GREEN}✅ All files updated successfully!${NC}\n"
