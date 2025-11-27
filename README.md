@@ -135,6 +135,7 @@ This template includes **comprehensive build optimizations**:
 - **build.yml**: Tests, lints, builds on every push (30min timeout)
 - **release.yml**: Signed releases on version tags (45min timeout)
 - **pre-release.yml**: Manual beta/alpha releases (workflow_dispatch)
+- **deploy-website.yml**: Deploys GitHub Pages website
 
 ### Setup Signed Releases
 
@@ -158,6 +159,7 @@ git tag v1.0.0 && git push --tags
 ├── lib/main.dart         # App entry point
 ├── test/                 # Tests
 ├── android/              # Android configuration
+├── astro/                # GitHub Pages website
 ├── docs/                 # AI prompting guides
 └── pubspec.yaml          # Dependencies
 ```
