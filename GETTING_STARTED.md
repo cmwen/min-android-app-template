@@ -1,6 +1,6 @@
 # Getting Started Guide
 
-Welcome! This guide will help you customize this Flutter template for your new app from scratch.
+Welcome! This guide will help you customize this Android Flutter template for your new app from scratch.
 
 ## 📋 Prerequisites
 
@@ -9,7 +9,7 @@ Before starting, ensure you have:
 - ✅ Flutter SDK 3.10.1+ ([Install Guide](https://docs.flutter.dev/get-started/install))
 - ✅ Dart 3.10.1+
 - ✅ Java 17+ (for Android builds)
-- ✅ Android Studio or Xcode (for mobile development)
+- ✅ Android Studio (for Android development)
 - ✅ Git
 - ✅ VS Code with GitHub Copilot (recommended for AI assistance)
 
@@ -71,23 +71,6 @@ flutter analyze
    android:label="Your App Name"
    ```
 
-6. **`web/manifest.json`**:
-   ```json
-   {
-     "name": "Your App Name",
-     "short_name": "YourApp"
-   }
-   ```
-
-7. **iOS Bundle Identifier**:
-   - Open `ios/Runner.xcodeproj` in Xcode
-   - Select Runner → General → Bundle Identifier
-   - Change to `com.yourcompany.yourapp`
-
-8. **macOS Bundle Identifier**:
-   - Open `macos/Runner.xcodeproj` in Xcode
-   - Update bundle identifier similarly
-
 #### Using AI to Rename
 
 Ask your AI agent:
@@ -95,7 +78,7 @@ Ask your AI agent:
 Please rename this Flutter app from "min_flutter_template" to "my_awesome_app" 
 and update the package name from "com.cmwen.min_flutter_template" to "com.mycompany.my_awesome_app". 
 Update all necessary files including pubspec.yaml, build.gradle.kts, AndroidManifest.xml, 
-iOS bundle identifier, web manifest, and Dart imports.
+and Dart imports.
 ```
 
 ### Step 3: Create App Icon
@@ -125,13 +108,6 @@ You have three options:
    
    flutter_launcher_icons:
      android: true
-     ios: true
-     web:
-       generate: true
-     windows:
-       generate: true
-     macos:
-       generate: true
      image_path: "assets/icon/app_icon.png"
    ```
 
@@ -145,9 +121,6 @@ You have three options:
 
 Place your icons manually in these directories:
 - Android: `android/app/src/main/res/mipmap-*/ic_launcher.png` (48, 72, 96, 144, 192 px)
-- iOS: `ios/Runner/Assets.xcassets/AppIcon.appiconset/`
-- Web: `web/icons/` (192px, 512px)
-- macOS: `macos/Runner/Assets.xcassets/AppIcon.appiconset/` (16-1024px)
 
 See [icon-generation.prompt.md](.github/prompts/icon-generation.prompt.md) for detailed sizing requirements.
 
@@ -177,13 +150,7 @@ MaterialApp(
    git remote set-url origin https://github.com/yourusername/your-repo-name.git
    ```
 
-3. **Update GitHub Pages URL** in `astro/astro.config.mjs`:
-   ```javascript
-   const GITHUB_USERNAME = 'yourusername';
-   const REPO_NAME = 'your-repo-name';
-   ```
-
-4. **Configure signing secrets** (for releases):
+3. **Configure signing secrets** (for releases):
    
    Generate keystore:
    ```bash
@@ -198,7 +165,7 @@ MaterialApp(
    - `ANDROID_KEY_ALIAS`: `release`
    - `ANDROID_KEY_PASSWORD`: Your key password
 
-5. **Push to GitHub**:
+4. **Push to GitHub**:
    ```bash
    git add .
    git commit -m "Initial setup with custom app name"
@@ -208,14 +175,11 @@ MaterialApp(
 ### Step 6: Test Your Setup
 
 ```bash
-# Run on different platforms
-flutter run -d chrome      # Web
-flutter run -d macos       # macOS
+# Run on Android
 flutter run -d android     # Android (connected device/emulator)
 
 # Build release
 flutter build apk --release
-flutter build web --release
 
 # Run tests
 flutter test
@@ -382,7 +346,7 @@ dart fix --apply
 
 Once you've completed all steps, you should have:
 - ✅ App renamed with custom package name
-- ✅ Custom app icon on all platforms
+- ✅ Custom app icon
 - ✅ GitHub repository configured
 - ✅ CI/CD workflows ready
 - ✅ AI agents configured for development
