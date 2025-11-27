@@ -1,6 +1,6 @@
-# Icon generation — Flutter cross-platform prompt
+# Icon generation — Android Flutter prompt
 
-Purpose: concise, reusable prompt for generating app icons (SVG / PNG) and launcher icons for Flutter cross-platform apps. Designed to work with LLMs (Copilot Chat) and image generation models (DALL·E, etc.).
+Purpose: concise, reusable prompt for generating app icons (SVG / PNG) and launcher icons for Android Flutter apps. Designed to work with LLMs (Copilot Chat) and image generation models (DALL·E, etc.).
 
 Use this prompt to:
 - Create consistent, accessible, and platform-ready icons
@@ -17,11 +17,6 @@ Important constraints (project-specific):
 
 **App Icons (Launcher)**:
 - Android: `android/app/src/main/res/mipmap-*/` (ic_launcher.png)
-- iOS: `ios/Runner/Assets.xcassets/AppIcon.appiconset/`
-- Web: `web/icons/` (Icon-192.png, Icon-512.png, Icon-maskable-192.png, Icon-maskable-512.png)
-- macOS: `macos/Runner/Assets.xcassets/AppIcon.appiconset/`
-- Windows: `windows/runner/resources/app_icon.ico`
-- Linux: `linux/` (set in CMakeLists.txt)
 
 **UI Icons**:
 - Place in `assets/icons/` and register in `pubspec.yaml`
@@ -37,18 +32,8 @@ Important constraints (project-specific):
 - xxhdpi: 144×144 px
 - xxxhdpi: 192×192 px
 
-**iOS App Icon**:
-- 20pt, 29pt, 40pt, 60pt, 76pt, 83.5pt at 1x, 2x, 3x scales
-- 1024×1024 px for App Store
-
-**Web Icons**:
-- 192×192 px (Icon-192.png)
-- 512×512 px (Icon-512.png)
-- 192×192 px maskable (Icon-maskable-192.png)
-- 512×512 px maskable (Icon-maskable-512.png)
-
-**macOS App Icon**:
-- 16, 32, 64, 128, 256, 512, 1024 px
+**Master Icon**:
+- 1024×1024 px for Play Store and source
 
 ## Example Prompts
 
@@ -65,8 +50,6 @@ Constraints: single color (use #1F2937 or suggest a high-contrast color)."
 "Design an app launcher icon for a Notes app — style: flat, minimal, rounded corners, primary accent color #0057D9. Provide:
 - a 1024×1024 source image
 - export-ready PNG files for all Android mipmap sizes
-- iOS app icon set
-- Web icons (192px, 512px, maskable versions)
 - alt text and recommended filenames
 Constraints: simple silhouette, good contrast at small sizes."
 
@@ -76,7 +59,7 @@ Constraints: simple silhouette, good contrast at small sizes."
 - Transparent or solid background (specify preference)
 - Simple two-tone palette: primary #0EA5E9, secondary #0F172A
 - Minimalist symbol, centered, no text
-- Provide outputs: PNG 1024x1024 (source), then resize for all platforms
+- Provide outputs: PNG 1024x1024 (source), then resize for Android mipmap sizes
 Negative prompts: avoid photorealism, gradients, text, heavy shadows."
 
 ## Using flutter_launcher_icons
@@ -90,13 +73,6 @@ dev_dependencies:
 
 flutter_launcher_icons:
   android: true
-  ios: true
-  web:
-    generate: true
-  windows:
-    generate: true
-  macos:
-    generate: true
   image_path: "assets/icon/app_icon.png"
 ```
 

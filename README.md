@@ -1,13 +1,13 @@
-# Minimal Flutter App Template
+# Minimal Android App Template
 
-A production-ready Flutter template with **AI-powered development workflow**, optimized build system, and comprehensive documentation. Start building your cross-platform app in minutes, not hours.
+A production-ready Android Flutter template with **AI-powered development workflow**, optimized build system, and comprehensive documentation. Start building your Android app in minutes, not hours.
 
 ## ✨ What Makes This Template Special
 
 - 🤖 **AI-First Development**: 6 custom GitHub Copilot agents (product owner, UX designer, architect, developer, researcher, doc writer)
 - ⚡ **Optimized Build System**: Java 17, parallel builds, multi-level caching - builds 60% faster
 - 🚀 **Production CI/CD**: GitHub Actions workflows with caching, testing, and signed releases
-- 📱 **True Cross-Platform**: Android, iOS, Web, Linux, macOS, Windows - all configured
+- 📱 **Android Focused**: Clean, minimal Android-only configuration
 - 🎨 **Material Design 3**: Beautiful, accessible UI out of the box
 - 📚 **Extensive Documentation**: Step-by-step guides for first-time users
 - 🧪 **Testing Framework**: Unit, widget, and integration testing ready
@@ -57,8 +57,7 @@ with primary color #3B82F6 in minimal style
 ### 4. Build and Run
 
 ```bash
-flutter run -d chrome      # Web
-flutter run -d android     # Android
+flutter run -d android     # Android (connected device/emulator)
 flutter build apk          # Release APK
 ```
 
@@ -114,7 +113,7 @@ This template includes **comprehensive build optimizations**:
 
 - **Java 17 baseline** for modern Android development
 - **Parallel builds** with 4 workers (local) / 2 workers (CI)
-- **Multi-level caching**: Gradle, Flutter SDK, pub packages, npm
+- **Multi-level caching**: Gradle, Flutter SDK, pub packages
 - **R8 code shrinking**: 40-60% smaller release APKs
 - **Concurrency control**: Cancels duplicate CI runs
 - **CI-optimized Gradle properties**: Separate config for CI vs local
@@ -136,7 +135,7 @@ This template includes **comprehensive build optimizations**:
 - **build.yml**: Tests, lints, builds on every push (30min timeout)
 - **release.yml**: Signed releases on version tags (45min timeout)
 - **pre-release.yml**: Manual beta/alpha releases (workflow_dispatch)
-- **deploy-website.yml**: Deploys docs to GitHub Pages
+- **deploy-website.yml**: Deploys GitHub Pages website
 
 ### Setup Signed Releases
 
@@ -160,9 +159,7 @@ git tag v1.0.0 && git push --tags
 ├── lib/main.dart         # App entry point
 ├── test/                 # Tests
 ├── android/              # Android configuration
-├── ios/                  # iOS configuration
-├── web/                  # Web configuration
-├── astro/                # Documentation website
+├── astro/                # GitHub Pages website
 ├── docs/                 # AI prompting guides
 └── pubspec.yaml          # Dependencies
 ```

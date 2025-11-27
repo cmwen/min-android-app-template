@@ -80,13 +80,13 @@ Background: [Brief description of your experience]
 
 **First prompt to try**:
 ```
-I'm building [your app] with min-flutter-template. I need to implement 
+I'm building [your app] with min-android-template. I need to implement 
 [specific advanced feature] following [architectural pattern].
 
 Requirements:
 - [Technical requirement 1]
 - [Technical requirement 2]
-- Must work on Android, iOS, and Web
+- Must work on Android
 
 Please provide implementation with best practices.
 ```

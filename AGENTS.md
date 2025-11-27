@@ -1,6 +1,6 @@
 # Agent Configuration and Instructions
 
-This document provides guidance for AI agents and automated tools working with this Flutter template repository.
+This document provides guidance for AI agents and automated tools working with this Android Flutter template repository.
 
 ## 🎯 Quick Reference for AI Agents
 
@@ -14,12 +14,10 @@ This document provides guidance for AI agents and automated tools working with t
 - `test/widget_test.dart` (imports)
 - `android/app/build.gradle.kts` (namespace, applicationId)
 - `android/app/src/main/AndroidManifest.xml` (label)
-- `web/manifest.json` (name, short_name)
-- iOS/macOS bundle identifiers (Xcode)
 
 ## Repository Overview
 
-This is a production-ready Flutter template with AI-powered development workflow, optimized build system (Java 17, parallel builds, caching), and comprehensive CI/CD. All agents have access to VS Code tools including terminal, debugger, test runner, and codebase explorer.
+This is a production-ready Android Flutter template with AI-powered development workflow, optimized build system (Java 17, parallel builds, caching), and comprehensive CI/CD. All agents have access to VS Code tools including terminal, debugger, test runner, and codebase explorer.
 
 ## AI Agents Overview
 
@@ -41,7 +39,7 @@ This template includes 6 specialized GitHub Copilot agents:
 - **Framework**: Flutter 3.10.1+
 - **Language**: Dart 3.10.1+
 - **Build System**: Java 17, Gradle 8.0+ with parallel builds and caching
-- **Platforms**: Android, iOS, Web, Linux, macOS, Windows
+- **Platform**: Android
 - **Package Manager**: pub (pubspec.yaml)
 - **Testing**: flutter_test, Widget testing, Integration testing
 - **Linting**: flutter_lints 6.0.0
@@ -54,12 +52,6 @@ This template includes 6 specialized GitHub Copilot agents:
 │   └── main.dart           # App entry point
 ├── test/                   # Unit and widget tests
 ├── android/                # Android platform files
-├── ios/                    # iOS platform files
-├── web/                    # Web platform files
-├── macos/                  # macOS platform files
-├── linux/                  # Linux platform files
-├── windows/                # Windows platform files
-├── astro/                  # Documentation website (Astro)
 ├── docs/                   # AI prompting guides
 ├── .github/                # CI/CD workflows and agents
 │   ├── workflows/          # GitHub Actions
@@ -88,12 +80,6 @@ version: 1.0.0+1              # Update version
 - `android/app/build.gradle.kts`: Change `applicationId`
 - `android/app/build.gradle.kts`: Configure signing (see release workflow)
 
-### 4. iOS Configuration
-- `ios/Runner.xcodeproj`: Update bundle identifier
-
-### 5. GitHub Pages (astro/astro.config.mjs)
-- Update `GITHUB_USERNAME` and `REPO_NAME` for deployment URL
-
 ## Flutter Commands
 
 ### Basic Commands
@@ -107,8 +93,6 @@ flutter run
 # Build release
 flutter build apk           # Android APK
 flutter build appbundle     # Android App Bundle
-flutter build ios           # iOS
-flutter build web           # Web
 
 # Run tests
 flutter test
@@ -121,7 +105,7 @@ flutter analyze
 
 ### build.yml
 - Runs on push to main/develop and PRs
-- Builds APK, App Bundle, and Web
+- Builds APK and App Bundle
 - Runs tests with parallel execution
 - Uploads coverage to Codecov
 - Uses CI-optimized Gradle properties
@@ -149,12 +133,6 @@ flutter analyze
 - Creates pre-release on GitHub
 - Supports alpha, beta, and pre-release types
 - Artifacts named with version and release type
-
-### deploy-website.yml
-- Deploys Astro site to GitHub Pages
-- Triggered on GitHub Release publish
-- Implements npm and Astro build caching
-- Timeout: 15 minutes
 
 ## Build Optimization
 
@@ -216,9 +194,7 @@ Update all files including:
 - test/widget_test.dart (imports)
 - android/app/build.gradle.kts (namespace, applicationId)
 - android/app/src/main/AndroidManifest.xml (label)
-- web/manifest.json (name, short_name)
 
-Also provide instructions for updating iOS and macOS bundle identifiers in Xcode.
 After updates, run flutter pub get and verify compilation.
 ```
 
@@ -350,15 +326,14 @@ Consider caching, lazy loading, code splitting, etc.
 
 1. Create GitHub repository
 2. Update git remote to new repo URL
-3. Update astro/astro.config.mjs with correct username/repo
-4. Generate Android keystore for signed releases
-5. Add GitHub Secrets:
+3. Generate Android keystore for signed releases
+4. Add GitHub Secrets:
    - ANDROID_KEYSTORE_BASE64
    - ANDROID_KEYSTORE_PASSWORD
    - ANDROID_KEY_ALIAS
    - ANDROID_KEY_PASSWORD
-6. Test workflows by pushing a commit
-7. Create first release with git tag v1.0.0
+5. Test workflows by pushing a commit
+6. Create first release with git tag v1.0.0
 
 Provide step-by-step commands using #tool:terminal.
 ```
@@ -399,7 +374,7 @@ What architecture patterns should I follow? Any gotchas?
 - Formatting code (dart format)
 - Running scripts
 - Checking git status
-- Building for platforms
+- Building for Android
 
 **#tool:runTests**:
 - Executing specific test files
