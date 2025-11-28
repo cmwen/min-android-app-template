@@ -4,6 +4,17 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (e.g., 1.2.0). If empty, uses pubspec.yaml version'
+        required: false
+        type: string
+      create_tag:
+        description: 'Create git tag for this version'
+        required: false
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -16,6 +27,38 @@ jobs:
     
     steps:
     - uses: actions/checkout@v6
+    
+    - name: Determine version
+      id: version
+      run: |
+        if [[ "${{ github.event_name }}" == "push" && "${{ github.ref_type }}" == "tag" ]]; then
+          # Extract version from tag (remove 'v' prefix if present)
+          TAG_VERSION="${{ github.ref_name }}"
+          VERSION="${TAG_VERSION#v}"
+          echo "source=tag" >> "$GITHUB_OUTPUT"
+        elif [[ -n "${{ inputs.version }}" ]]; then
+          # Use manually provided version
+          VERSION="${{ inputs.version }}"
+          VERSION="${VERSION#v}"
+          echo "source=input" >> "$GITHUB_OUTPUT"
+        else
+          # Extract version from pubspec.yaml
+          VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //' | cut -d'+' -f1)
+          echo "source=pubspec" >> "$GITHUB_OUTPUT"
+        fi
+        
+        # Extract build number (versionCode) - increment based on run number if not from tag
+        if [[ "$VERSION" == *"+"* ]]; then
+          BUILD_NUMBER="${VERSION#*+}"
+          VERSION="${VERSION%+*}"
+        else
+          BUILD_NUMBER="${{ github.run_number }}"
+        fi
+        
+        echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+        echo "build_number=$BUILD_NUMBER" >> "$GITHUB_OUTPUT"
+        echo "tag_name=v$VERSION" >> "$GITHUB_OUTPUT"
+        echo "Using version: $VERSION+$BUILD_NUMBER"
     
     - name: Setup Java
       uses: actions/setup-java@v5
@@ -75,29 +118,46 @@ jobs:
         EOF
     
     - name: Build signed APK
-      run: flutter build apk --release
+      run: flutter build apk --release --build-name=${{ steps.version.outputs.version }} --build-number=${{ steps.version.outputs.build_number }}
     
     - name: Build signed App Bundle
-      run: flutter build appbundle --release
+      run: flutter build appbundle --release --build-name=${{ steps.version.outputs.version }} --build-number=${{ steps.version.outputs.build_number }}
+    
+    # Rename artifacts with version suffix
+    - name: Rename artifacts
+      run: |
+        VERSION="${{ steps.version.outputs.version }}"
+        BUILD_NUMBER="${{ steps.version.outputs.build_number }}"
+        APP_NAME="min-android-template"
+        
+        mkdir -p build/artifacts
+        cp build/app/outputs/flutter-apk/app-release.apk \
+           build/artifacts/${APP_NAME}-${VERSION}+${BUILD_NUMBER}.apk
+        cp build/app/outputs/bundle/release/app-release.aab \
+           build/artifacts/${APP_NAME}-${VERSION}+${BUILD_NUMBER}.aab
     
     - name: Upload release artifacts
       uses: actions/upload-artifact@v5
       with:
-        name: release-artifacts
-        path: |
-          build/app/outputs/flutter-apk/*.apk
-          build/app/outputs/bundle/release/*.aab
+        name: release-${{ steps.version.outputs.version }}
+        path: build/artifacts/*
         retention-days: 90
     
+    - name: Create and push tag
+      if: github.event_name == 'workflow_dispatch' && inputs.create_tag && steps.version.outputs.source != 'tag'
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git tag -a "${{ steps.version.outputs.tag_name }}" -m "Release ${{ steps.version.outputs.version }}"
+        git push origin "${{ steps.version.outputs.tag_name }}"
+    
     - name: Publish GitHub Release
-      if: startsWith(github.ref, 'refs/tags/')
+      if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.create_tag)
       uses: softprops/action-gh-release@v2
       with:
-        name: ${{ github.ref_name }}
-        tag_name: ${{ github.ref_name }}
-        files: |
-          build/app/outputs/flutter-apk/*.apk
-          build/app/outputs/bundle/release/*.aab
+        name: ${{ steps.version.outputs.tag_name }}
+        tag_name: ${{ steps.version.outputs.tag_name }}
+        files: build/artifacts/*
         generate_release_notes: true
     
     - name: Clean up signing files

@@ -91,11 +91,30 @@ jobs:
         storeFile=release-keystore.jks
         EOF
     
+    - name: Determine version
+      id: version
+      run: |
+        VERSION="${{ inputs.version_name }}"
+        VERSION="${VERSION#v}"
+        
+        # Extract build number (versionCode) - use run number as build number
+        if [[ "$VERSION" == *"+"* ]]; then
+          BUILD_NUMBER="${VERSION#*+}"
+          VERSION="${VERSION%+*}"
+        else
+          BUILD_NUMBER="${{ github.run_number }}"
+        fi
+        
+        echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+        echo "build_number=$BUILD_NUMBER" >> "$GITHUB_OUTPUT"
+        echo "tag_name=${{ inputs.version_name }}" >> "$GITHUB_OUTPUT"
+        echo "Using version: $VERSION+$BUILD_NUMBER"
+    
     - name: Build signed APK
-      run: flutter build apk --release
+      run: flutter build apk --release --build-name=${{ steps.version.outputs.version }} --build-number=${{ steps.version.outputs.build_number }}
     
     - name: Build signed App Bundle
-      run: flutter build appbundle --release
+      run: flutter build appbundle --release --build-name=${{ steps.version.outputs.version }} --build-number=${{ steps.version.outputs.build_number }}
     
     # Rename artifacts with version suffix
     - name: Rename artifacts
