@@ -29,9 +29,11 @@
         <domain includeSubdomains="true">localhost</domain>
         <!-- Android emulator host (maps to your computer's localhost) -->
         <domain includeSubdomains="true">10.0.2.2</domain>
-        <!-- Local network for physical device testing -->
-        <domain includeSubdomains="true">10.0.0.0</domain>
-        <domain includeSubdomains="true">192.168.0.0</domain>
+        <!-- 
+            For physical device testing on local network, add your 
+            development server's IP address or hostname here, e.g.:
+            <domain includeSubdomains="true">192.168.1.100</domain>
+        -->
     </domain-config>
 
     <!-- 

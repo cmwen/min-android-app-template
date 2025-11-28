@@ -13,9 +13,7 @@ This template includes sensible defaults for common Android app requirements. Th
 
 ## Permissions
 
-### Location
-
-`android/app/src/main/AndroidManifest.xml`
+**File location:** `android/app/src/main/AndroidManifest.xml`
 
 ### Included Permissions
 
