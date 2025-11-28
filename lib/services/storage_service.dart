@@ -64,9 +64,7 @@ class StorageService {
   /// Ensures the service is initialized before use.
   void _ensureInitialized() {
     if (_prefs == null) {
-      throw StateError(
-        'StorageService not initialized. Call init() first.',
-      );
+      throw StateError('StorageService not initialized. Call init() first.');
     }
   }
 
