@@ -24,7 +24,22 @@ A production-ready Android Flutter template with **AI-powered development workfl
 
 Verify: `flutter doctor -v && java -version`
 
-### 1. Clone and Setup
+> 📖 **New to development?** See [PREREQUISITES.md](PREREQUISITES.md) for detailed installation instructions.
+
+### Option 1: Automated Setup (Recommended)
+
+```bash
+# Clone this template
+git clone https://github.com/yourusername/your-repo-name.git
+cd your-repo-name
+
+# Run the quick start script
+./scripts/setup/quick-start.sh
+```
+
+The script will guide you through naming your app and make all necessary changes automatically!
+
+### Option 2: Manual Setup
 
 ```bash
 # Clone this template
@@ -38,23 +53,28 @@ flutter pub get
 flutter test && flutter analyze
 ```
 
-### 2. Customize Your App (Use AI!)
-
+Then customize using AI:
 ```
 @flutter-developer Please rename this app from "min_flutter_template" 
 to "my_awesome_app" with package "com.mycompany.my_awesome_app"
 ```
 
+### Option 3: GitHub Codespaces (No Installation!)
+
+1. Click **"Use this template"** → **"Create a new repository"**
+2. In your new repo, click **Code** → **Codespaces** → **"Create codespace on main"**
+3. Everything is pre-configured - start coding immediately!
+
 **See [GETTING_STARTED.md](GETTING_STARTED.md) for complete setup guide.**
 
-### 3. Generate App Icon
+### Generate App Icon
 
 ```
 @icon-generation.prompt.md Create an app icon for my [describe app] 
 with primary color #3B82F6 in minimal style
 ```
 
-### 4. Build and Run
+### Build and Run
 
 ```bash
 flutter run -d android     # Android (connected device/emulator)
@@ -169,6 +189,7 @@ git tag v1.0.0 && git push --tags
 ### Getting Started
 - **[GETTING_STARTED.md](GETTING_STARTED.md)** - Complete setup guide for first-time users ⭐
 - **[APP_CUSTOMIZATION.md](APP_CUSTOMIZATION.md)** - Comprehensive customization checklist & AI prompts ⭐
+- **[PREREQUISITES.md](PREREQUISITES.md)** - Installation requirements for all platforms
 
 ### Development
 - [AI_PROMPTING_GUIDE.md](AI_PROMPTING_GUIDE.md) - AI agent best practices
@@ -176,6 +197,9 @@ git tag v1.0.0 && git push --tags
 - [BUILD_OPTIMIZATION.md](BUILD_OPTIMIZATION.md) - Build performance details
 - [TESTING.md](TESTING.md) - Testing guide
 - [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines
+
+### Help
+- [TROUBLESHOOTING.md](TROUBLESHOOTING.md) - Common issues and solutions
 
 ### Prompts
 - `.github/prompts/icon-generation.prompt.md` - Icon generation guide
