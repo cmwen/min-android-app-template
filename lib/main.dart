@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+// Available services (uncomment to use):
+// import 'package:min_flutter_template/services/storage_service.dart';
+// import 'package:min_flutter_template/services/network_service.dart';
+
 void main() {
   runApp(const MyApp());
 }
