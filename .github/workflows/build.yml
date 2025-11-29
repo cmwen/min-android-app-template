@@ -63,13 +63,13 @@ jobs:
         dart format .
         dart fix --apply
     
-    # Commit formatting changes if any (only on PRs and pushes, not on forks)
+    # Commit formatting changes if any (only on PRs from the same repo)
     - name: Commit formatting changes
-      if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
+      if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
-        git add -A
+        git add .
         if git diff --staged --quiet; then
           echo "No formatting changes to commit"
         else
