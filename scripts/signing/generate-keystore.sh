@@ -189,8 +189,12 @@ if [[ "$UPLOAD" =~ ^[Yy]$ ]]; then
         echo ""
         echo -e "${BLUE}🔄 Uploading to GitHub Secrets for ${REPO}...${NC}"
         
-        # Base64 encode the keystore
-        KEYSTORE_BASE64=$(base64 -w 0 "$KEYSTORE_PATH")
+        # Base64 encode the keystore (cross-platform: works on both Linux and macOS)
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            KEYSTORE_BASE64=$(base64 -i "$KEYSTORE_PATH" | tr -d '\n')
+        else
+            KEYSTORE_BASE64=$(base64 -w 0 "$KEYSTORE_PATH")
+        fi
         
         echo -n "  ANDROID_KEYSTORE_BASE64... "
         echo "$KEYSTORE_BASE64" | gh secret set ANDROID_KEYSTORE_BASE64 --repo "$REPO" && echo -e "${GREEN}✓${NC}" || echo -e "${RED}✗${NC}"

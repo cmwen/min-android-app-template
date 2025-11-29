@@ -103,6 +103,7 @@ runs:
             2>/dev/null
           
           # Export the keystore as base64 for persistence
+          # Note: Using -w 0 (Linux-specific) since this runs on GitHub Actions Ubuntu runners
           KEYSTORE_BASE64=$(base64 -w 0 "$KEYSTORE_FILE")
           
           echo "is_auto_generated=true" >> "$GITHUB_OUTPUT"
