@@ -53,8 +53,16 @@ This template includes 6 specialized GitHub Copilot agents:
 ├── test/                   # Unit and widget tests
 ├── android/                # Android platform files
 ├── docs/                   # AI prompting guides
+├── scripts/                # Automation scripts
+│   ├── signing/            # Signing-related scripts
+│   │   ├── generate-keystore.sh    # Generate keystore locally
+│   │   └── persist-credentials.sh  # Persist auto-generated credentials
+│   ├── setup/              # Setup scripts
+│   └── release/            # Release scripts
 ├── .github/                # CI/CD workflows and agents
 │   ├── workflows/          # GitHub Actions
+│   ├── actions/            # Custom composite actions
+│   │   └── setup-signing/  # Auto-generate or use existing keystore
 │   ├── agents/             # Copilot Chat agents
 │   └── prompts/            # Copilot custom prompts
 └── pubspec.yaml            # Dependencies and project config

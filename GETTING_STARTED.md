@@ -150,9 +150,30 @@ MaterialApp(
    git remote set-url origin https://github.com/yourusername/your-repo-name.git
    ```
 
-3. **Configure signing secrets** (for releases):
+3. **Configure signing** (choose one option):
+
+   #### Option A: Auto-Generate (Recommended for Beginners)
    
-   Generate keystore:
+   Just run the release workflow! It will automatically generate a keystore.
+   After the first release:
+   1. Download the `signing-credentials` artifact from the workflow run
+   2. Run the persistence script:
+      ```bash
+      ./scripts/signing/persist-credentials.sh ./signing-credentials.json
+      ```
+   3. Delete the downloaded credentials file
+   
+   #### Option B: Generate Locally (Interactive)
+   
+   Use the provided script for a guided setup:
+   ```bash
+   ./scripts/signing/generate-keystore.sh
+   ```
+   This will create a keystore and optionally upload it to GitHub Secrets.
+   
+   #### Option C: Manual Setup (Advanced)
+   
+   Generate keystore manually:
    ```bash
    keytool -genkey -v -keystore release-keystore.jks \
      -keyalg RSA -keysize 2048 -validity 10000 \
@@ -160,7 +181,7 @@ MaterialApp(
    ```
    
    Add GitHub Secrets:
-   - `ANDROID_KEYSTORE_BASE64`: `base64 -i release-keystore.jks | pbcopy`
+   - `ANDROID_KEYSTORE_BASE64`: `base64 -w 0 release-keystore.jks`
    - `ANDROID_KEYSTORE_PASSWORD`: Your keystore password
    - `ANDROID_KEY_ALIAS`: `release`
    - `ANDROID_KEY_PASSWORD`: Your key password
