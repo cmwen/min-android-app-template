@@ -99,10 +99,11 @@ Before submitting a PR:
 - [ ] Build succeeds: `flutter build apk`
 - [ ] Tests pass: `flutter test`
 - [ ] Code analysis passes: `flutter analyze`
-- [ ] Code is formatted: `dart format .`
 - [ ] GitHub Actions workflows pass
 - [ ] Documentation is updated
 - [ ] Changes are backward compatible
+
+> **Note**: Code formatting is automatically applied by CI. You don't need to run `dart format` manually, but you can run it locally if preferred.
 
 ### Commit Message Format
 

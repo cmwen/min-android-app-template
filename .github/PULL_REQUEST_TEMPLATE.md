@@ -13,12 +13,14 @@ Brief description of the changes in this PR.
 
 ## Checklist
 
-- [ ] Build succeeds (`./gradlew build`)
-- [ ] Tests pass (`./gradlew test`)
-- [ ] Lint checks pass (`./gradlew lint`)
+- [ ] Build succeeds (`flutter build apk`)
+- [ ] Tests pass (`flutter test`)
+- [ ] Code analysis passes (`flutter analyze`)
 - [ ] Documentation updated (if needed)
 - [ ] Changes are minimal and focused
 - [ ] Backward compatible (or breaking changes noted)
+
+> **Note**: Code formatting is automatically applied by CI. You don't need to run `dart format` manually.
 
 ## Testing
 

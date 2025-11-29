@@ -300,6 +300,12 @@ Tests run automatically on:
 - Every pull request
 - Before releases
 
+The CI also:
+- **Auto-formats code** using `dart format` and commits changes
+- **Auto-fixes linter issues** using `dart fix --apply`
+
+This means you don't need to worry about formatting - CI will handle it for you.
+
 See `.github/workflows/build.yml` for configuration.
 
 ## Common Issues
