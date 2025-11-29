@@ -152,10 +152,12 @@ This template includes **comprehensive build optimizations**:
 
 ### Automated Workflows
 
-- **build.yml**: Tests, lints, builds on every push (30min timeout)
+- **build.yml**: Auto-formats code, runs tests, lints, and builds on every push (30min timeout)
 - **release.yml**: Signed releases on version tags (45min timeout)
 - **pre-release.yml**: Manual beta/alpha releases (workflow_dispatch)
 - **deploy-website.yml**: Deploys GitHub Pages website
+
+> **Note**: The build workflow automatically formats code using `dart format` and applies lint fixes with `dart fix --apply`. Any formatting changes are committed automatically, so you don't need to worry about code style.
 
 ### Setup Signed Releases
 

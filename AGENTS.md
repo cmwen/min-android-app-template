@@ -105,6 +105,8 @@ flutter analyze
 
 ### build.yml
 - Runs on push to main/develop and PRs
+- **Auto-formats code and commits changes** - No need to worry about formatting
+- Applies `dart fix --apply` for automatic lint fixes
 - Builds APK and App Bundle
 - Runs tests with parallel execution
 - Uploads coverage to Codecov
@@ -415,13 +417,13 @@ What architecture patterns should I follow? Any gotchas?
 
 ## Best Practices for AI Agents
 
-1. **Always use terminal to verify changes** - Run tests, formatter, analyzer after implementation
+1. **Always use terminal to verify changes** - Run tests and analyzer after implementation
 2. **Save documentation to docs/** - Future agents can reference prior decisions
 3. **Use descriptive file names** - Prefix with REQUIREMENTS_, UX_DESIGN_, ARCHITECTURE_, etc.
 4. **Check problems before finishing** - Use #tool:problems to catch errors early
 5. **Review changes with #tool:changes** - Ensure no unintended modifications
 6. **Run tests with #tool:runTests or #tool:terminal** - Verify functionality
-7. **Format code before completing** - Always run `dart format .`
+7. **CI will auto-format code** - No need to run `dart format` manually; CI handles formatting and commits changes
 8. **Use codebase to understand context** - Don't guess patterns, search for them
 9. **Handoff between agents** - Use handoff features for multi-stage tasks
 10. **Reference documentation files** - Link to docs/ files for context

@@ -239,10 +239,10 @@ Technical approach:
 After implementation:
 1. Write unit tests for business logic
 2. Write widget tests for UI components
-3. Run dart format .
-4. Run flutter analyze
-5. Run flutter test
-6. Document any public APIs
+3. Run flutter analyze
+4. Run flutter test
+5. Document any public APIs
+6. Code formatting is handled automatically by CI
 ```
 
 ### Step 9: Create Release Build
@@ -273,7 +273,6 @@ flutter pub get
 
 # Check for issues
 flutter analyze
-dart format --set-exit-if-changed .
 
 # Run tests
 flutter test
