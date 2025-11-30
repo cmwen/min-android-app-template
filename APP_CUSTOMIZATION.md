@@ -11,9 +11,13 @@ This guide provides a comprehensive checklist and AI prompts for customizing thi
   - [ ] `lib/main.dart` - MaterialApp title
   - [ ] `android/app/src/main/AndroidManifest.xml` - android:label
 
-- [ ] **Package/Bundle Identifier**
-  - [ ] `android/app/build.gradle.kts` - namespace and applicationId
-   
+- [ ] **Package/Bundle Identifier** ⚠️ **CRITICAL - Must be changed before running app!**
+  - [ ] `android/app/build.gradle.kts` - namespace and applicationId (MUST MATCH)
+  - [ ] `android/app/src/main/kotlin/.../MainActivity.kt` - package declaration and file path
+  - [ ] iOS: Xcode → Runner → General → Bundle Identifier
+  - [ ] macOS: Xcode → Runner → General → Bundle Identifier
+  - [ ] **See [PACKAGE_RENAME_GUIDE.md](PACKAGE_RENAME_GUIDE.md) for detailed instructions**
+  
 - [ ] **Description**
   - [ ] `pubspec.yaml` - description field
   - [ ] `README.md` - project description

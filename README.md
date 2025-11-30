@@ -53,6 +53,10 @@ flutter pub get
 flutter test && flutter analyze
 ```
 
+### 2. Customize Your App (CRITICAL!)
+
+⚠️ **IMPORTANT**: You MUST rename the package before running the app. See [PACKAGE_RENAME_GUIDE.md](PACKAGE_RENAME_GUIDE.md)
+
 Then customize using AI:
 ```
 @flutter-developer Please rename this app from "min_flutter_template" 

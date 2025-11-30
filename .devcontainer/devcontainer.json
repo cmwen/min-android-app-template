@@ -1,5 +1,5 @@
 {
-  "name": "Android Development",
+  "name": "Flutter Android Development",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
   
   "features": {
@@ -7,18 +7,18 @@
       "version": "17",
       "jdkDistro": "tem"
     },
-    "ghcr.io/devcontainers/features/android-sdk:1": {
+    "ghcr.io/NordcomInc/devcontainer-features/android-sdk:1": {
       "version": "latest"
     },
-    "ghcr.io/devcontainers/features/gradle:1": {
-      "version": "latest"
-    },
-    "ghcr.io/devcontainers/features/git:1": {}
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/node:1": {}
   },
 
   "customizations": {
     "vscode": {
       "extensions": [
+        "dart-code.dart-code",
+        "dart-code.flutter",
         "vscjava.vscode-java-pack",
         "vscjava.vscode-gradle",
         "mathiasfrohlich.kotlin",
@@ -39,7 +39,7 @@
     }
   },
 
-  "postCreateCommand": "chmod +x gradlew && ./gradlew --version",
+  "postCreateCommand": "bash -c 'git clone https://github.com/flutter/flutter.git -b stable --depth 1 /home/vscode/flutter && echo \"export PATH=\\$PATH:/home/vscode/flutter/bin\" >> ~/.bashrc && /home/vscode/flutter/bin/flutter doctor && flutter pub get'",
 
   "remoteUser": "vscode"
 }

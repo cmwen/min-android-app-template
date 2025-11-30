@@ -38,38 +38,67 @@ flutter test
 flutter analyze
 ```
 
-### Step 2: Rename Your App
+### Step 2: Rename Your App and Package
 
-**Important**: You need to update the app name in multiple locations. Use AI agents or search/replace:
+⚠️ **CRITICAL**: Failure to rename the package will cause app launch issues on Android!
 
-#### Files to Update:
+**See [PACKAGE_RENAME_GUIDE.md](PACKAGE_RENAME_GUIDE.md) for detailed instructions.**
 
-1. **`pubspec.yaml`** (Line 1):
+#### Quick Rename (Using AI - Recommended):
+
+```
+@flutter-developer Please rename this app from "min_flutter_template" 
+to "my_awesome_app" with package "com.mycompany.my_awesome_app". 
+Follow PACKAGE_RENAME_GUIDE.md
+```
+
+#### Manual Rename (Essential Files):
+
+1. **`pubspec.yaml`**:
    ```yaml
    name: your_app_name  # Change from min_flutter_template
    description: "Your app description"
    ```
 
-2. **`lib/main.dart`** (Import statement):
-   ```dart
-   import 'package:your_app_name/main.dart';  // Update import
+2. **`android/app/build.gradle.kts`** (MUST MATCH):
+   ```kotlin
+   namespace = "com.yourcompany.yourapp"  // Change this
+   applicationId = "com.yourcompany.yourapp"  // Change this (must match namespace)
    ```
 
-3. **`test/widget_test.dart`** (Import):
+3. **`android/app/src/main/kotlin/.../MainActivity.kt`** (Package and file path):
+   ```kotlin
+   package com.yourcompany.yourapp  // Change package declaration
+   ```
+   Then move file to match package structure: `kotlin/com/yourcompany/yourapp/MainActivity.kt`
+
+4. **`test/widget_test.dart`**:
    ```dart
    import 'package:your_app_name/main.dart';
    ```
 
-4. **`android/app/build.gradle.kts`** (Lines 36-37, 50):
-   ```kotlin
-   namespace = "com.yourcompany.yourapp"
-   applicationId = "com.yourcompany.yourapp"
-   ```
-
-5. **`android/app/src/main/AndroidManifest.xml`** (Line 2):
+5. **`android/app/src/main/AndroidManifest.xml`**:
    ```xml
    android:label="Your App Name"
    ```
+
+
+After renaming, run:
+```bash
+flutter clean
+flutter pub get
+flutter run  # Test on Android to verify package name is correct
+```
+
+6. **iOS Bundle Identifier**:
+   - Open `ios/Runner.xcodeproj` in Xcode
+   - Select Runner → General → Bundle Identifier
+   - Change to `com.yourcompany.yourapp`
+
+7. **macOS Bundle Identifier**:
+   - Open `macos/Runner.xcodeproj` in Xcode
+   - Update bundle identifier similarly
+
 
 #### Using AI to Rename
 

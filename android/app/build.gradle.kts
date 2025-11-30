@@ -34,6 +34,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
+    // TODO: Change namespace to match your package name (e.g., "com.yourcompany.yourapp")
     namespace = "com.cmwen.min_flutter_template"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
@@ -48,7 +49,8 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        // TODO: Change applicationId to match your package name (e.g., "com.yourcompany.yourapp")
+        // IMPORTANT: This MUST match the package in MainActivity.kt and namespace above
         applicationId = "com.cmwen.min_flutter_template"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
