@@ -8,7 +8,7 @@
 				"@upstash/context7-mcp@latest"
 			]
 		},
-		"dart and flutter mcp": {
+		"dart": {
 			"type": "stdio",
 			"command": "dart",
 			"args": [
