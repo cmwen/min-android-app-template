@@ -34,6 +34,23 @@ This template includes 6 specialized GitHub Copilot agents:
 
 **All agents have terminal access** - They can run Flutter commands, tests, builds, and formatting.
 
+## Agent Skills
+
+In addition to role-based agents, this project includes **Agent Skills** - specialized, reusable workflows for specific tasks. Skills are automatically discovered by GitHub Copilot.
+
+### Available Skills
+
+| Skill | Purpose | When to Use |
+|-------|---------|-------------|
+| **icon-generation** | Generate app icons and launcher assets | Creating UI or launcher icons, setting up flutter_launcher_icons |
+| **android-debug** | Debug Android app issues | App crashes, device issues, performance problems |
+| **ci-debug** | Fix GitHub Actions failures | Workflow failures, CI-specific build errors |
+| **build-fix** | Diagnose build failures | Gradle errors, dependency conflicts, compilation issues |
+
+**Location**: `.github/skills/` - Each skill has a `SKILL.md` with structured workflows and examples.
+
+**Learn more**: See [`.github/skills/README.md`](.github/skills/README.md) for complete documentation.
+
 ## Key Technologies
 
 - **Framework**: Flutter 3.10.1+
@@ -64,7 +81,8 @@ This template includes 6 specialized GitHub Copilot agents:
 │   ├── actions/            # Custom composite actions
 │   │   └── setup-signing/  # Auto-generate or use existing keystore
 │   ├── agents/             # Copilot Chat agents
-│   └── prompts/            # Copilot custom prompts
+│   ├── skills/             # Agent skills (task-specific workflows)
+│   └── prompts/            # Copilot custom prompts (legacy)
 └── pubspec.yaml            # Dependencies and project config
 ```
 
