@@ -37,7 +37,7 @@ dependencies:
 
   # Opinionated defaults for storage
   # Simple key-value storage for user preferences and small data
-  shared_preferences: ^2.3.0
+  shared_preferences: ^2.5.4
   # Access to device file system paths (documents, cache, temp directories)
   path_provider: ^2.1.0
 
