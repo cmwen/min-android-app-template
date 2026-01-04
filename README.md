@@ -12,6 +12,7 @@ A production-ready Android Flutter template with **AI-powered development workfl
 - 📚 **Extensive Documentation**: Step-by-step guides for first-time users
 - 🧪 **Testing Framework**: Unit, widget, and integration testing ready
 - 🔧 **VS Code Optimized**: Agents configured with terminal, debugger, and VS Code API access
+- 🤖 **Ollama Toolkit**: Complete LLM integration with agents, tools, and model registry (NEW!)
 
 ## 🚀 Quick Start (5 Minutes)
 
@@ -177,6 +178,52 @@ keytool -genkey -v -keystore release.jks -keyalg RSA -keysize 2048 -validity 100
 
 # 3. Tag and push
 git tag v1.0.0 && git push --tags
+```
+
+## 🤖 Ollama Toolkit (Built-in Module)
+
+Complete LLM integration ready to use in your app - no separate package needed!
+
+### Features
+- ✅ **Full Ollama API** - Chat, generate, embeddings, streaming
+- ✅ **Model Registry** - 15+ models with capabilities metadata
+- ✅ **Agent Framework** - LangChain-inspired with tool calling
+- ✅ **Memory Management** - Multiple conversation strategies
+- ✅ **66 Unit Tests** - Production-ready and tested
+
+### Quick Start
+
+```dart
+import 'package:min_flutter_template/ollama_toolkit/ollama_toolkit.dart';
+
+// Create client
+final client = OllamaClient(baseUrl: 'http://localhost:11434');
+
+// Chat
+final response = await client.chat(
+  'llama3.2',
+  [OllamaMessage.user('Hello!')],
+);
+
+// Agent with tools
+final agent = OllamaAgent(client: client, model: 'llama3.2');
+final result = await agent.runWithTools(
+  'What is 2+2?',
+  [CalculatorTool(), CurrentTimeTool()],
+);
+```
+
+**Documentation**:
+- `lib/ollama_toolkit/README.md` - Complete guide
+- `docs/ARCHITECTURE_OLLAMA_TOOLKIT.md` - Architecture
+- `docs/OLLAMA_TOOLKIT_SUMMARY.md` - Implementation details
+- `.github/skills/ollama-integration/SKILL.md` - AI skill
+
+**AI Prompts**:
+```
+Add a chat screen using ollama_toolkit with llama3.2
+Create an agent with CalculatorTool and CurrentTimeTool
+Add Ollama configuration screen with model selection
 ```
 
 ## Project Structure
