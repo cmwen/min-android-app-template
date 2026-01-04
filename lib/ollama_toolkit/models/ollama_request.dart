@@ -21,6 +21,9 @@ class OllamaGenerateRequest {
   /// Conversation context from previous requests
   final List<int>? context;
 
+  /// Enable thinking mode (true/false or "low"/"medium"/"high" for GPT-OSS)
+  final dynamic think;
+
   const OllamaGenerateRequest({
     required this.model,
     required this.prompt,
@@ -28,6 +31,7 @@ class OllamaGenerateRequest {
     this.options,
     this.system,
     this.context,
+    this.think,
   });
 
   Map<String, dynamic> toJson() {
@@ -40,6 +44,7 @@ class OllamaGenerateRequest {
     if (options != null) json['options'] = options;
     if (system != null) json['system'] = system;
     if (context != null) json['context'] = context;
+    if (think != null) json['think'] = think;
 
     return json;
   }
@@ -62,12 +67,16 @@ class OllamaChatRequest {
   /// Optional tools that the model can call
   final List<ToolDefinition>? tools;
 
+  /// Enable thinking mode (true/false or "low"/"medium"/"high" for GPT-OSS)
+  final dynamic think;
+
   const OllamaChatRequest({
     required this.model,
     required this.messages,
     this.stream = false,
     this.options,
     this.tools,
+    this.think,
   });
 
   Map<String, dynamic> toJson() {
@@ -81,6 +90,7 @@ class OllamaChatRequest {
     if (tools != null && tools!.isNotEmpty) {
       json['tools'] = tools!.map((t) => t.toJson()).toList();
     }
+    if (think != null) json['think'] = think;
 
     return json;
   }

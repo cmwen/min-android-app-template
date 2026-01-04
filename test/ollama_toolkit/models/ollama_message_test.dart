@@ -51,11 +51,23 @@ void main() {
       expect(message.toolCalls![0].name, 'calculator');
     });
 
+    test('creates assistant message with thinking', () {
+      final message = OllamaMessage.assistant(
+        'The answer is 4',
+        thinking: 'First I need to add 2+2...',
+      );
+
+      expect(message.role, 'assistant');
+      expect(message.content, 'The answer is 4');
+      expect(message.thinking, 'First I need to add 2+2...');
+    });
+
     test('creates tool message', () {
-      final message = OllamaMessage.tool('Result: 4');
+      final message = OllamaMessage.tool('Result: 4', toolName: 'calculator');
 
       expect(message.role, 'tool');
       expect(message.content, 'Result: 4');
+      expect(message.toolName, 'calculator');
     });
 
     test('serializes to JSON', () {
@@ -90,6 +102,29 @@ void main() {
       expect(json['tool_calls'], isNotEmpty);
       expect(json['tool_calls'][0]['name'], 'test');
     });
+
+    test('serializes thinking to JSON', () {
+      final message = OllamaMessage.assistant(
+        'Answer',
+        thinking: 'Reasoning trace',
+      );
+      final json = message.toJson();
+
+      expect(json['thinking'], 'Reasoning trace');
+    });
+
+    test('serializes tool message with tool_name to JSON', () {
+      final message = OllamaMessage.tool(
+        'Result',
+        toolName: 'calculator',
+        toolId: 'call_123',
+      );
+      final json = message.toJson();
+
+      expect(json['role'], 'tool');
+      expect(json['tool_name'], 'calculator');
+      expect(json['tool_id'], 'call_123');
+    });
   });
 
   group('ToolCall', () {
@@ -105,6 +140,17 @@ void main() {
       expect(toolCall.arguments['expression'], '10 * 5');
     });
 
+    test('creates tool call with index for parallel calling', () {
+      final toolCall = ToolCall(
+        id: 'call_123',
+        name: 'calculator',
+        arguments: {'expression': '10 * 5'},
+        index: 0,
+      );
+
+      expect(toolCall.index, 0);
+    });
+
     test('serializes to JSON', () {
       final toolCall = ToolCall(
         id: '1',
@@ -116,6 +162,18 @@ void main() {
       expect(json['id'], '1');
       expect(json['name'], 'test');
       expect(json['arguments']['a'], 1);
+    });
+
+    test('serializes to JSON with index', () {
+      final toolCall = ToolCall(
+        id: 'call_abc',
+        name: 'get_weather',
+        arguments: {'city': 'London'},
+        index: 2,
+      );
+      final json = toolCall.toJson();
+
+      expect(json['index'], 2);
     });
 
     test('deserializes from JSON', () {

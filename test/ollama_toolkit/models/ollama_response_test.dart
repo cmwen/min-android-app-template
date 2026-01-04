@@ -45,6 +45,20 @@ void main() {
       expect(response.evalDuration, isNull);
       expect(response.context, isNull);
     });
+
+    test('deserializes with thinking field', () {
+      final json = {
+        'model': 'deepseek-r1',
+        'response': 'The answer is 42',
+        'done': true,
+        'thinking': 'First I analyzed the question...',
+      };
+
+      final response = OllamaGenerateResponse.fromJson(json);
+
+      expect(response.thinking, 'First I analyzed the question...');
+      expect(response.response, 'The answer is 42');
+    });
   });
 
   group('OllamaChatResponse', () {
@@ -86,6 +100,23 @@ void main() {
 
       expect(response.message.toolCalls, hasLength(1));
       expect(response.message.toolCalls![0].name, 'calculator');
+    });
+
+    test('deserializes message with thinking', () {
+      final json = {
+        'model': 'qwen3',
+        'message': {
+          'role': 'assistant',
+          'content': 'The answer is 4',
+          'thinking': 'Let me calculate 2+2...',
+        },
+        'done': true,
+      };
+
+      final response = OllamaChatResponse.fromJson(json);
+
+      expect(response.message.thinking, 'Let me calculate 2+2...');
+      expect(response.message.content, 'The answer is 4');
     });
   });
 

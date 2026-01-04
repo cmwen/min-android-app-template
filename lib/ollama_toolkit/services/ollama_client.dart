@@ -46,6 +46,7 @@ class OllamaClient {
     String? system,
     Map<String, dynamic>? options,
     List<int>? context,
+    dynamic think,
   }) async {
     final request = OllamaGenerateRequest(
       model: model,
@@ -54,6 +55,7 @@ class OllamaClient {
       system: system,
       options: options,
       context: context,
+      think: think,
     );
 
     final response = await _post('/api/generate', request.toJson());
@@ -67,6 +69,7 @@ class OllamaClient {
     String? system,
     Map<String, dynamic>? options,
     List<int>? context,
+    dynamic think,
   }) {
     final request = OllamaGenerateRequest(
       model: model,
@@ -75,6 +78,7 @@ class OllamaClient {
       system: system,
       options: options,
       context: context,
+      think: think,
     );
 
     return _postStream(
@@ -88,12 +92,14 @@ class OllamaClient {
     String model,
     List<OllamaMessage> messages, {
     Map<String, dynamic>? options,
+    dynamic think,
   }) async {
     final request = OllamaChatRequest(
       model: model,
       messages: messages,
       stream: false,
       options: options,
+      think: think,
     );
 
     final response = await _post('/api/chat', request.toJson());
@@ -105,12 +111,14 @@ class OllamaClient {
     String model,
     List<OllamaMessage> messages, {
     Map<String, dynamic>? options,
+    dynamic think,
   }) {
     final request = OllamaChatRequest(
       model: model,
       messages: messages,
       stream: true,
       options: options,
+      think: think,
     );
 
     return _postStream(

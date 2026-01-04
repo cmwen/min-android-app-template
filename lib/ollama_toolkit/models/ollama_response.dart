@@ -20,6 +20,9 @@ class OllamaGenerateResponse {
   /// Time spent evaluating in nanoseconds
   final int? evalDuration;
 
+  /// Thinking/reasoning trace (for thinking-capable models)
+  final String? thinking;
+
   const OllamaGenerateResponse({
     required this.model,
     required this.response,
@@ -27,6 +30,7 @@ class OllamaGenerateResponse {
     this.context,
     this.evalCount,
     this.evalDuration,
+    this.thinking,
   });
 
   factory OllamaGenerateResponse.fromJson(Map<String, dynamic> json) {
@@ -37,6 +41,7 @@ class OllamaGenerateResponse {
       context: (json['context'] as List<dynamic>?)?.cast<int>(),
       evalCount: json['eval_count'] as int?,
       evalDuration: json['eval_duration'] as int?,
+      thinking: json['thinking'] as String?,
     );
   }
 

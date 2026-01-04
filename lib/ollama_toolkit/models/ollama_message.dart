@@ -12,11 +12,23 @@ class OllamaMessage {
   /// Optional list of tool calls made by the assistant
   final List<ToolCall>? toolCalls;
 
+  /// Optional thinking/reasoning trace (for thinking-capable models)
+  final String? thinking;
+
+  /// Tool name for tool role messages
+  final String? toolName;
+
+  /// Tool call ID for linking tool results to tool calls
+  final String? toolId;
+
   const OllamaMessage({
     required this.role,
     required this.content,
     this.images,
     this.toolCalls,
+    this.thinking,
+    this.toolName,
+    this.toolId,
   });
 
   factory OllamaMessage.system(String content) {
@@ -27,16 +39,30 @@ class OllamaMessage {
     return OllamaMessage(role: 'user', content: content, images: images);
   }
 
-  factory OllamaMessage.assistant(String content, {List<ToolCall>? toolCalls}) {
+  factory OllamaMessage.assistant(
+    String content, {
+    List<ToolCall>? toolCalls,
+    String? thinking,
+  }) {
     return OllamaMessage(
       role: 'assistant',
       content: content,
       toolCalls: toolCalls,
+      thinking: thinking,
     );
   }
 
-  factory OllamaMessage.tool(String content) {
-    return OllamaMessage(role: 'tool', content: content);
+  factory OllamaMessage.tool(
+    String content, {
+    required String toolName,
+    String? toolId,
+  }) {
+    return OllamaMessage(
+      role: 'tool',
+      content: content,
+      toolName: toolName,
+      toolId: toolId,
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -50,17 +76,32 @@ class OllamaMessage {
       json['tool_calls'] = toolCalls!.map((tc) => tc.toJson()).toList();
     }
 
+    if (thinking != null) {
+      json['thinking'] = thinking;
+    }
+
+    if (toolName != null) {
+      json['tool_name'] = toolName;
+    }
+
+    if (toolId != null) {
+      json['tool_id'] = toolId;
+    }
+
     return json;
   }
 
   factory OllamaMessage.fromJson(Map<String, dynamic> json) {
     return OllamaMessage(
       role: json['role'] as String,
-      content: json['content'] as String,
+      content: json['content'] as String? ?? '',
       images: (json['images'] as List<dynamic>?)?.cast<String>(),
       toolCalls: (json['tool_calls'] as List<dynamic>?)
           ?.map((tc) => ToolCall.fromJson(tc as Map<String, dynamic>))
           .toList(),
+      thinking: json['thinking'] as String?,
+      toolName: json['tool_name'] as String?,
+      toolId: json['tool_id'] as String?,
     );
   }
 
@@ -81,14 +122,26 @@ class ToolCall {
   /// Arguments to pass to the tool as a JSON object
   final Map<String, dynamic> arguments;
 
+  /// Index for parallel tool calling (optional)
+  final int? index;
+
   const ToolCall({
     required this.id,
     required this.name,
     required this.arguments,
+    this.index,
   });
 
   Map<String, dynamic> toJson() {
-    return {'id': id, 'name': name, 'arguments': arguments};
+    final json = <String, dynamic>{
+      'id': id,
+      'name': name,
+      'arguments': arguments,
+    };
+    if (index != null) {
+      json['index'] = index;
+    }
+    return json;
   }
 
   factory ToolCall.fromJson(Map<String, dynamic> json) {
@@ -96,6 +149,7 @@ class ToolCall {
       id: json['id'] as String,
       name: json['name'] as String,
       arguments: json['arguments'] as Map<String, dynamic>,
+      index: json['index'] as int?,
     );
   }
 
