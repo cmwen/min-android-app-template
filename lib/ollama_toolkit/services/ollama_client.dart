@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../models/ollama_message.dart';
 import '../models/ollama_request.dart';
@@ -108,14 +109,14 @@ class OllamaClient {
     final requestJson = request.toJson();
 
     // Debug: log request details
-    print('[OllamaClient.chat] Model: $model');
-    print('[OllamaClient.chat] Tools count: ${tools?.length ?? 0}');
+    debugPrint('[OllamaClient.chat] Model: $model');
+    debugPrint('[OllamaClient.chat] Tools count: ${tools?.length ?? 0}');
     if (tools != null && tools.isNotEmpty) {
-      print(
+      debugPrint(
         '[OllamaClient.chat] Tool names: ${tools.map((t) => t.name).join(", ")}',
       );
     }
-    print(
+    debugPrint(
       '[OllamaClient.chat] Request JSON keys: ${requestJson.keys.join(", ")}',
     );
 

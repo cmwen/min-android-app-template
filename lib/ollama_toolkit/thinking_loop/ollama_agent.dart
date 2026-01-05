@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import '../services/ollama_client.dart';
 import '../models/ollama_message.dart';
 import '../models/ollama_tool.dart';
@@ -64,16 +66,16 @@ class OllamaAgent implements Agent {
             : null;
 
         // Debug: log tools being sent
-        print(
+        debugPrint(
           '[OllamaAgent] Iteration $iteration: Sending ${toolDefinitions?.length ?? 0} tools to model $model',
         );
         if (toolDefinitions != null) {
           for (final tool in toolDefinitions) {
-            print('[OllamaAgent] Tool: ${tool.name}');
+            debugPrint('[OllamaAgent] Tool: ${tool.name}');
           }
         }
 
-        print('[OllamaAgent] About to call client.chat()...');
+        debugPrint('[OllamaAgent] About to call client.chat()...');
         late OllamaChatResponse response;
         try {
           response = await client.chat(
@@ -86,7 +88,7 @@ class OllamaAgent implements Agent {
           // Check if error is about tools not being supported
           if (e.toString().contains('does not support tools') &&
               modelSupportsTools) {
-            print(
+            debugPrint(
               '[OllamaAgent] Model $model does not support tools. Retrying without tools...',
             );
             modelSupportsTools = false;
@@ -97,7 +99,7 @@ class OllamaAgent implements Agent {
           rethrow;
         }
 
-        print(
+        debugPrint(
           '[OllamaAgent] Response received: toolCalls=${response.message.toolCalls?.length ?? 0}, content length=${response.message.content.length}',
         );
 
@@ -116,7 +118,7 @@ class OllamaAgent implements Agent {
             message.toolCalls!.map((toolCall) async {
               // Skip tool calls with empty names BEFORE adding step
               if (toolCall.name.isEmpty) {
-                print(
+                debugPrint(
                   '[OllamaAgent] Skipping tool call with empty name (index: ${toolCall.index})',
                 );
                 return {
@@ -145,7 +147,7 @@ class OllamaAgent implements Agent {
               }
 
               if (tool == null) {
-                print(
+                debugPrint(
                   '[OllamaAgent] Tool not found: ${toolCall.name}. Available tools: ${tools.map((t) => t.name).join(", ")}',
                 );
                 return {
@@ -226,8 +228,8 @@ class OllamaAgent implements Agent {
         success: true,
       );
     } catch (e, stackTrace) {
-      print('[OllamaAgent] ERROR: $e');
-      print('[OllamaAgent] Stack trace: $stackTrace');
+      debugPrint('[OllamaAgent] ERROR: $e');
+      debugPrint('[OllamaAgent] Stack trace: $stackTrace');
       return AgentResponse(
         response: '',
         steps: steps,
