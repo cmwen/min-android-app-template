@@ -16,7 +16,7 @@ A comprehensive Flutter toolkit for integrating Ollama LLMs into Android apps.
 ### 1. Import the Toolkit
 
 ```dart
-import 'package:min_flutter_template/ollama_toolkit/ollama_toolkit.dart';
+import 'package:private_chat_hub/ollama_toolkit/ollama_toolkit.dart';
 ```
 
 ### 2. Create a Client

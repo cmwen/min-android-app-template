@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:min_flutter_template/ollama_toolkit/thinking_loop/tools.dart';
+import 'package:private_chat_hub/ollama_toolkit/thinking_loop/tools.dart';
 
 void main() {
   group('CalculatorTool', () {

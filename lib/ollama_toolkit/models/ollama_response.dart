@@ -1,4 +1,5 @@
 import 'ollama_message.dart';
+import 'ollama_model.dart';
 
 /// Response from Ollama generate API
 class OllamaGenerateResponse {
@@ -159,6 +160,20 @@ class OllamaModelInfo {
       return '${(size / (1024 * 1024)).toStringAsFixed(1)} MB';
     }
     return '${(size / (1024 * 1024 * 1024)).toStringAsFixed(1)} GB';
+  }
+
+  /// Returns the model family (e.g., "llama3.2" from "llama3.2:latest").
+  String get family => name.split(':').first;
+
+  /// Returns the parameter count if available (e.g., "8B").
+  String? get parameterCount {
+    return details?['parameter_size'] as String?;
+  }
+
+  /// Returns the capabilities of this model based on its name.
+  /// Uses ModelRegistry to look up known capabilities.
+  ModelCapabilities? get capabilities {
+    return ModelRegistry.getCapabilities(name);
   }
 
   @override
