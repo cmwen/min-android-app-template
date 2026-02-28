@@ -1,6 +1,21 @@
-# GitHub Copilot Agent Skills
+# Agent Skills
 
-This directory contains [Agent Skills](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) - specialized, reusable instructions that guide GitHub Copilot agents to perform specific tasks according to project best practices.
+This directory contains [Agent Skills](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) — specialized, reusable instructions that guide AI agents to perform specific tasks according to project best practices.
+
+## Cross-Tool Compatibility
+
+Skills are stored here (`.github/skills/`) as the canonical source and symlinked to `.opencode/skills/` for OpenCode CLI compatibility. Both tools read the same `SKILL.md` files.
+
+| Tool | Discovery Path |
+|------|---------------|
+| **GitHub Copilot** (VS Code, CLI, Coding Agent) | `.github/skills/<name>/SKILL.md` |
+| **OpenCode CLI** | `.opencode/skills/<name>/SKILL.md` (symlinks) |
+| **Other agents** (Cursor, Codex, etc.) | Root `AGENTS.md` lists all skills |
+
+### Adding a new skill
+
+1. Create `.github/skills/your-skill-name/SKILL.md`
+2. Add symlink: `cd .opencode/skills && ln -s ../../.github/skills/your-skill-name your-skill-name`
 
 ## What Are Agent Skills?
 
@@ -97,19 +112,39 @@ Diagnose and fix Flutter build failures including dependency conflicts and Gradl
 
 ---
 
+### 🤖 ollama-integration
+**Path**: `.github/skills/ollama-integration/`
+
+Integrate Ollama LLM capabilities into your Flutter app using the built-in toolkit.
+
+**Use when**:
+- Adding AI chat functionality
+- Implementing tool-calling agents
+- Creating conversational interfaces with LLMs
+- Building agentic workflows with custom tools
+
+**Key capabilities**:
+- Full Ollama API client usage patterns
+- Agent framework with tool support
+- Configuration and model selection
+- Memory management patterns
+- Supported model capabilities matrix
+
+---
+
 ## How to Use Skills
 
-### In VS Code
-Skills are automatically loaded when you use GitHub Copilot. The agent will suggest using relevant skills based on your context.
-
-### In Copilot Chat
-Reference skills directly:
+### GitHub Copilot (VS Code / CLI)
+Skills are automatically discovered from `.github/skills/`. Reference them in chat:
 ```
 @workspace Use the android-debug skill to help me fix this crash
 ```
 
-### In GitHub CLI
-Skills work with `gh copilot` commands when available.
+### OpenCode CLI
+Skills are discovered from `.opencode/skills/` (symlinked to `.github/skills/`):
+```
+Use the build-fix skill to diagnose my Gradle error
+```
 
 ## Skill Structure
 
@@ -147,7 +182,12 @@ To add a new skill:
    - Troubleshooting guidance
    - Links to relevant resources
 
-3. **Follow best practices**:
+3. **Add OpenCode symlink**:
+   ```bash
+   cd .opencode/skills && ln -s ../../.github/skills/your-skill-name your-skill-name
+   ```
+
+4. **Follow best practices**:
    - Use lowercase-with-hyphens for skill names
    - Be specific about when to use the skill
    - Include practical examples
@@ -155,7 +195,7 @@ To add a new skill:
    - Provide troubleshooting steps
    - Keep instructions actionable
 
-4. **Update this README**: Add your skill to the list above
+5. **Update this README**: Add your skill to the list above
 
 ## Skill Guidelines
 
@@ -174,24 +214,23 @@ To add a new skill:
 
 ## Related Resources
 
-- **Custom Agents**: `.github/agents/` - Role-based agent personas
-- **Custom Prompts**: `.github/prompts/` - General guidance (legacy)
-- **Documentation**: `docs/` - Project documentation
-- **Workflows**: `.github/workflows/` - CI/CD automation
+- **Custom Agents**: `.github/agents/` — Role-based agent personas (GitHub Copilot)
+- **OpenCode Skills**: `.opencode/skills/` — Symlinks for OpenCode CLI compatibility
+- **Documentation**: `docs/` — Project documentation
+- **Workflows**: `.github/workflows/` — CI/CD automation
 
 ## Additional Information
 
-### Skills vs Prompts vs Agents
+### Skills vs Agents
 
 - **Skills**: Task-specific, reusable workflows (this directory)
-- **Prompts**: General guidance and constraints (`.github/prompts/`)
 - **Agents**: Role-based personas with tools (`.github/agents/`)
 
 ### Official Documentation
 
-- [About Agent Skills - GitHub Docs](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills)
+- [GitHub Copilot Agent Skills](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills)
+- [OpenCode Skills](https://opencode.ai/docs/skills)
 - [VS Code Agent Skills](https://code.visualstudio.com/docs/copilot/customization/agent-skills)
-- [Writing Great Agents - GitHub Blog](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/)
 
 ## Contributing
 

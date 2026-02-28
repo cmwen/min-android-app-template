@@ -1,3 +1,8 @@
+---
+name: ollama-integration
+description: Integrate Ollama LLM capabilities into your Flutter app using the built-in toolkit. Use when adding AI chat, tool-calling agents, or conversational interfaces.
+---
+
 # Ollama Integration Skill
 
 Integrate Ollama LLM capabilities into your Flutter app using the built-in toolkit.

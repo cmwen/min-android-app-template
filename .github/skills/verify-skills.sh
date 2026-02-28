@@ -1,10 +1,11 @@
 #!/bin/bash
 # Verify Agent Skills Structure
-# This script checks that all skills follow the proper format
+# Checks that all skills follow the proper format and OpenCode symlinks exist
 
 set -e
 
 SKILLS_DIR=".github/skills"
+OPENCODE_DIR=".opencode/skills"
 ERRORS=0
 
 echo "🔍 Verifying Agent Skills..."
@@ -59,6 +60,13 @@ for skill_file in $SKILL_FILES; do
         echo "   ⚠️  File seems too short ($file_size lines)"
     else
         echo "   ✓ Has content ($file_size lines)"
+    fi
+
+    # Check OpenCode symlink exists
+    if [ -L "$OPENCODE_DIR/$skill_name" ]; then
+        echo "   ✓ OpenCode symlink exists"
+    elif [ -d "$OPENCODE_DIR" ]; then
+        echo "   ⚠️  Missing OpenCode symlink at $OPENCODE_DIR/$skill_name"
     fi
     
     echo

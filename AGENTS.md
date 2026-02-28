@@ -2,6 +2,8 @@
 
 This document provides guidance for AI agents and automated tools working with this Android Flutter template repository.
 
+> **Multi-tool support**: This repo is configured for both **GitHub Copilot** (`.github/agents/`, `.github/skills/`) and **OpenCode CLI** (`.opencode/skills/` symlinked to `.github/skills/`). The root `AGENTS.md` is read by all major coding agents.
+
 ## 🎯 Quick Reference for AI Agents
 
 **First-Time Users**: Direct them to [GETTING_STARTED.md](GETTING_STARTED.md) for complete setup guide.
@@ -21,22 +23,22 @@ This is a production-ready Android Flutter template with AI-powered development 
 
 ## AI Agents Overview
 
-This template includes 6 specialized GitHub Copilot agents:
+This template includes 6 specialized agents (defined in `.github/agents/`):
 
-| Agent | Tools | Purpose |
-|-------|-------|---------|
-| **@product-owner** | edit, search, fetch, githubRepo, codebase, terminal | Define features, requirements, user stories |
-| **@experience-designer** | edit, search, fetch, githubRepo, codebase, terminal | Design UX, user flows, wireframes |
-| **@architect** | edit, search, context7, fetch, githubRepo, codebase, terminal | Plan architecture, technical decisions |
-| **@researcher** | edit, search, fetch, context7, githubRepo, codebase, terminal | Research packages, best practices |
-| **@flutter-developer** | edit, search, terminal, runTests, debugger, problems, changes, context7, codebase | Implement features, write tests, debug |
-| **@doc-writer** | edit, search, context7, fetch, githubRepo, codebase, terminal | Create documentation, guides |
+| Agent | Purpose |
+|-------|---------|
+| **@product-owner** | Define features, requirements, user stories |
+| **@experience-designer** | Design UX, user flows, wireframes |
+| **@architect** | Plan architecture, technical decisions |
+| **@researcher** | Research packages, best practices |
+| **@flutter-developer** | Implement features, write tests, debug |
+| **@doc-writer** | Create documentation, guides |
 
 **All agents have terminal access** - They can run Flutter commands, tests, builds, and formatting.
 
 ## Agent Skills
 
-In addition to role-based agents, this project includes **Agent Skills** - specialized, reusable workflows for specific tasks. Skills are automatically discovered by GitHub Copilot.
+This project includes **Agent Skills** — specialized, reusable workflows for specific tasks.
 
 ### Available Skills
 
@@ -46,10 +48,15 @@ In addition to role-based agents, this project includes **Agent Skills** - speci
 | **android-debug** | Debug Android app issues | App crashes, device issues, performance problems |
 | **ci-debug** | Fix GitHub Actions failures | Workflow failures, CI-specific build errors |
 | **build-fix** | Diagnose build failures | Gradle errors, dependency conflicts, compilation issues |
+| **ollama-integration** | Integrate Ollama LLM toolkit | Adding AI chat, tool-calling agents, LLM features |
 
-**Location**: `.github/skills/` - Each skill has a `SKILL.md` with structured workflows and examples.
+### Skill Locations
 
-**Learn more**: See [`.github/skills/README.md`](.github/skills/README.md) for complete documentation.
+Skills are stored in `.github/skills/` and symlinked to `.opencode/skills/` for cross-tool compatibility:
+
+- **GitHub Copilot**: Reads from `.github/skills/<name>/SKILL.md`
+- **OpenCode CLI**: Reads from `.opencode/skills/<name>/SKILL.md` (symlinks)
+- **Other agents**: Read this `AGENTS.md` for skill descriptions
 
 ## Key Technologies
 
@@ -72,17 +79,15 @@ In addition to role-based agents, this project includes **Agent Skills** - speci
 ├── docs/                   # AI prompting guides
 ├── scripts/                # Automation scripts
 │   ├── signing/            # Signing-related scripts
-│   │   ├── generate-keystore.sh    # Generate keystore locally
-│   │   └── persist-credentials.sh  # Persist auto-generated credentials
 │   ├── setup/              # Setup scripts
 │   └── release/            # Release scripts
 ├── .github/                # CI/CD workflows and agents
 │   ├── workflows/          # GitHub Actions
 │   ├── actions/            # Custom composite actions
-│   │   └── setup-signing/  # Auto-generate or use existing keystore
-│   ├── agents/             # Copilot Chat agents
-│   ├── skills/             # Agent skills (task-specific workflows)
-│   └── prompts/            # Copilot custom prompts (legacy)
+│   ├── agents/             # Copilot Chat agents (.agent.md)
+│   └── skills/             # Agent skills (SKILL.md)
+├── .opencode/              # OpenCode CLI compatibility
+│   └── skills/             # Symlinks → .github/skills/
 └── pubspec.yaml            # Dependencies and project config
 ```
 
