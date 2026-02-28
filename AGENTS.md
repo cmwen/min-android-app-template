@@ -2,7 +2,9 @@
 
 This document provides guidance for AI agents and automated tools working with this Android Flutter template repository.
 
-> **Multi-tool support**: This repo is configured for both **GitHub Copilot** (`.github/agents/`, `.github/skills/`) and **OpenCode CLI** (`.opencode/skills/` symlinked to `.github/skills/`). The root `AGENTS.md` is read by all major coding agents.
+> **Multi-tool support**: This repo is configured for both **GitHub Copilot** (`.github/agents/`, `.github/skills/`) and **OpenCode CLI** (`.opencode/agents/` for opencode-compatible agents, `.opencode/skills/` symlinked to `.github/skills/`). The root `AGENTS.md` is read by all major coding agents.
+>
+> **Note on agent formats**: GitHub Copilot agents (`.github/agents/*.agent.md`) and OpenCode agents (`.opencode/agents/*.md`) use different frontmatter schemas and cannot be symlinked. The `.opencode/agents/` files are native opencode format with `mode: subagent`, `tools: {write, edit, bash, webfetch}`, and `permission` blocks. Skills remain as symlinks since both tools share the same `SKILL.md` format.
 
 ## 🎯 Quick Reference for AI Agents
 
@@ -23,16 +25,19 @@ This is a production-ready Android Flutter template with AI-powered development 
 
 ## AI Agents Overview
 
-This template includes 6 specialized agents (defined in `.github/agents/`):
+This template includes 7 specialized agents (defined in `.github/agents/`):
 
 | Agent | Purpose |
 |-------|---------|
+| **@orchestrator** | Coordinate multi-agent workflows; delegates to subagents by task type |
 | **@product-owner** | Define features, requirements, user stories |
 | **@experience-designer** | Design UX, user flows, wireframes |
 | **@architect** | Plan architecture, technical decisions |
 | **@researcher** | Research packages, best practices |
 | **@flutter-developer** | Implement features, write tests, debug |
 | **@doc-writer** | Create documentation, guides |
+
+**Use `@orchestrator` for complex, multi-step requests** — it decomposes the work, delegates each part to the right specialist, and synthesizes the results. For simple single-domain tasks, invoke the specialist directly.
 
 **All agents have terminal access** - They can run Flutter commands, tests, builds, and formatting.
 
@@ -87,6 +92,7 @@ Skills are stored in `.github/skills/` and symlinked to `.opencode/skills/` for 
 │   ├── agents/             # Copilot Chat agents (.agent.md)
 │   └── skills/             # Agent skills (SKILL.md)
 ├── .opencode/              # OpenCode CLI compatibility
+│   ├── agents/             # OpenCode-compatible agents (mode: subagent, opencode format)
 │   └── skills/             # Symlinks → .github/skills/
 └── pubspec.yaml            # Dependencies and project config
 ```
